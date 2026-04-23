@@ -1,0 +1,12 @@
+gh --classic
+node --classic
+curl
+firefox
+zen-browser-snap --channel=candidate
+microsoft-edge
+code --classic
+postman
+# insomnia
+slack
+discord
+notion-snap
