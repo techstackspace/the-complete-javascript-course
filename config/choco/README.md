@@ -296,6 +296,7 @@ code --install-extension formulahendry.auto-rename-tag
 code --install-extension GitHub.codespaces
 code --install-extension GitHub.github-vscode-theme
 code --install-extension openai.chatgpt
+code --install-extension ms-vscode.live-server
 code --install-extension Anthropic.claude-code
 code --install-extension pranaygp.vscode-css-peek
 code --install-extension dbaeumer.vscode-eslint

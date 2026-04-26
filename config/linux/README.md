@@ -507,6 +507,7 @@ code --install-extension ms-edgedevtools.vscode-edge-devtools
 code --install-extension bradlc.vscode-tailwindcss
 code --install-extension ritwickdey.LiveServer
 code --install-extension ecmel.vscode-html-css
+code --install-extension ms-vscode.live-server
 code --install-extension formulahendry.auto-rename-tag
 code --install-extension GitHub.codespaces
 code --install-extension GitHub.github-vscode-theme
