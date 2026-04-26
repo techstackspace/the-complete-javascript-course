@@ -10,3 +10,5 @@ postman
 slack
 discord
 notion-snap
+
+# Feel free to remove or add more packages
