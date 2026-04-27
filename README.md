@@ -196,6 +196,20 @@ http://localhost:8080
 
 Open that URL in your browser to view the project.
 
+If Bun is installed, you can preview a plain HTML project directly from the terminal:
+
+```bash
+bun index.html
+```
+
+This starts a local development server and gives you a local URL such as:
+
+```text
+http://localhost:3000
+```
+
+Open that URL in your browser to view the project.
+
 ---
 
 ### Option 2: VS Code Live Preview
