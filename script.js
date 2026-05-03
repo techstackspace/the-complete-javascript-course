@@ -10,13 +10,15 @@ console.log(3 + 4);
 // alert(`My age is ${personAge}.`);
 
 const objectCar = {
-    tyre: 4,
-    color: "red",
-    name: "BMW",
-    driver: {
-        name: "John Doe"
-    }
-}
+	tyre: 4,
+	color: "red",
+	name: "BMW",
+	driver: {
+		name: "John Doe",
+	},
+};
 
 console.log(objectCar.tyre);
 console.log(objectCar.driver.name);
+console.log(globalThis);
+// console.log(process);
