@@ -6,6 +6,7 @@ Below are the official resources for the frontend tools used in this setup.
 
 - **Homebrew** — <https://brew.sh/>
 - **Homebrew Documentation** — <https://docs.brew.sh/>
+- **Kiro CLI** — <https://kiro.dev/cli/>
 
 ### Cross-Platform Package Managers
 
