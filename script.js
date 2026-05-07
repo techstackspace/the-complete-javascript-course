@@ -1,24 +1,16 @@
-console.log("Hello World!");
-
-const personName = "Adams";
+const personName = "John Doe";
 console.log(personName);
-console.log(`My name is ${personName}. I love JavaScript.`);
 
-console.log(3 + 4);
+let personAge = 45;
+personAge = 54;
+console.log(personAge);
 
-// const personAge = prompt("What is your age?");
-// alert(`My age is ${personAge}.`);
+// const myCurrentAge = 67
+const MY_BIRTHDAY = "1993-11-03";
+const myAge = 34;
+const PI = 3.143;
 
-const objectCar = {
-	tyre: 4,
-	color: "red",
-	name: "BMW",
-	driver: {
-		name: "John Doe",
-	},
-};
+console.log(MY_BIRTHDAY, myAge, PI);
 
-console.log(objectCar.tyre);
-console.log(objectCar.driver.name);
-console.log(globalThis);
-// console.log(process);
+console.log("Hello World!!");
+// [1, 4, 6].forEach(alert);
