@@ -518,14 +518,16 @@ code --install-extension formulahendry.auto-rename-tag
 code --install-extension GitHub.codespaces
 code --install-extension GitHub.github-vscode-theme
 code --install-extension openai.chatgpt
-code --install-extension Sixth.sixth-ai
-code --install-extension kilocode.Kilo-Code
-code --install-extension sourcegraph.cody-ai
-code --install-extension saoudrizwan.claude-dev
+# code --install-extension Sixth.sixth-ai
+# code --install-extension kilocode.Kilo-Code
+# code --install-extension sourcegraph.cody-ai
+# code --install-extension Blackboxapp.blackbox
+# code --install-extension saoudrizwan.claude-dev
 code --install-extension ms-vscode.live-server
 code --install-extension Anthropic.claude-code
 code --install-extension google.geminicodeassist
-code --install-extension Google.gemini-cli-vscode-ide-companion
+# code --install-extension RooVeterinaryInc.roo-cline
+# code --install-extension Google.gemini-cli-vscode-ide-companion
 code --install-extension pranaygp.vscode-css-peek
 code --install-extension dbaeumer.vscode-eslint
 code --install-extension ms-vscode-remote.vscode-remote-extensionpack
