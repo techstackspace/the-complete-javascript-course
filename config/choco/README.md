@@ -305,6 +305,7 @@ code --install-extension openai.chatgpt
 code --install-extension ms-vscode.live-server
 code --install-extension Anthropic.claude-code
 code --install-extension google.geminicodeassist
+# code --install-extension Continue.continue
 # code --install-extension Google.gemini-cli-vscode-ide-companion
 code --install-extension pranaygp.vscode-css-peek
 code --install-extension dbaeumer.vscode-eslint
