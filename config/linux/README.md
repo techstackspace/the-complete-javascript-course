@@ -528,6 +528,8 @@ code --install-extension Anthropic.claude-code
 code --install-extension google.geminicodeassist
 # code --install-extension RooVeterinaryInc.roo-cline
 # code --install-extension Google.gemini-cli-vscode-ide-companion
+# code --install-extension Continue.continue
+# code --install-extention Codeium.codeium
 code --install-extension pranaygp.vscode-css-peek
 code --install-extension dbaeumer.vscode-eslint
 code --install-extension ms-vscode-remote.vscode-remote-extensionpack
