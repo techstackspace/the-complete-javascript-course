@@ -61,7 +61,7 @@ Symbol("id");
 
 // Objects (Non-Primitive)
 const myTechStack = ["Bun", "Node", "JavaScript"];
-myTechStack[1] = "Demo";
+myTechStack[1] = "Deno";
 console.log(myTechStack);
 
 const personInfo = {
