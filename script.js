@@ -16,7 +16,7 @@ console.log(2 / 0);
 console.log("This is a text" / 34);
 console.log(NaN ** 0);
 
-// BigInt
+// 2. BigInt
 console.log(2 ** 53 - 1);
 // 9007199254740991
 
@@ -31,14 +31,14 @@ console.log(minNum - 2);
 const sandCount = 1212232342352535235353523534n;
 console.log(sandCount);
 
-// String
+// 3. String
 const currentUser = "John Doe";
 const pageLoadTime = "23ms";
 const personAddress = `dsadaevwvwv`;
 
 console.log(currentUser, pageLoadTime, personAddress);
 
-// Boolean
+// 4. Boolean
 // True or False
 console.log(true, false);
 const isOlder = 34 > 23;
@@ -47,19 +47,19 @@ console.log(isOlder);
 const isYounger = 34 < 23;
 console.log(isYounger);
 
-// Null
+// 5. Null
 let age = null;
 age = 45;
 console.log(age);
 
-// undefined
+// 6. Undefined
 let personAge;
 console.log(personAge);
 
-// Symbol
+// 7. Symbol
 Symbol("id");
 
-// Objects (Non-Primitive)
+// 8. Objects (Non-Primitive)
 const myTechStack = ["Bun", "Node", "JavaScript"];
 myTechStack[1] = "Deno";
 console.log(myTechStack);
