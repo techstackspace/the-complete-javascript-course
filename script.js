@@ -43,7 +43,7 @@ const userAddress = `9 Newcastle way, VI`;
 
 console.log(currentUser, pageLoadTime, userAddress);
 
-// 4. Boolen (Logical Type)
+// 4. Boolean (Logical Type)
 console.log(true, false);
 const isOlder = 34 > 23;
 console.log(isOlder);
@@ -69,7 +69,7 @@ Symbol("id");
 
 // 8. Object
 const myTechStack = ["Bun", "Node", "Python"];
-myTechStack[1] = "Demo";
+myTechStack[1] = "Deno";
 console.log(myTechStack);
 
 const personInfo = {
