@@ -99,3 +99,4 @@ console.log(typeof alert); // function
 console.log(typeof Math); // object
 console.log(typeof 10n);
 console.log(typeof (2 * 5));
+console.log(typeof Symbol());
