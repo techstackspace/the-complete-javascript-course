@@ -8,7 +8,7 @@ console.log(favoriteNumber);
 //    - Floating point
 //    - Infinity
 //    - -Infinity
-//    -  NaN
+//    - NaN
 
 const userWeight = 34.6;
 console.log(userWeight, Infinity);
