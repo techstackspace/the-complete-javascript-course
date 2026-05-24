@@ -1,101 +1,101 @@
-let favoriteNumber = 34; // number
-favoriteNumber = "69"; // string
-console.log(favoriteNumber);
+console.log(10 + 5);
 
-// Data Types
-// 1. Number
-//    - Integer
-//    - Floating point
-//    - Infinity
-//    - -Infinity
-//    -  NaN
+// 1. Arithmetic (Math) Operator
 
-const userWeight = 34.6;
-console.log(userWeight, Infinity);
-console.log(2 / 0);
-console.log("This is a text" / 2);
-console.log(NaN ** 0);
-// *, /, -, +, ...
+// addition - +
+// substraction - -
+// multiplication - *
+// division - /
+// exponentiation - **
 
-// 2. BigInt
-console.log(2 ** 53 - 1);
-// 9007199254740991
+const GRANDPA_BIRTHYEAR = 1950;
+const currentYear = 2000;
 
-const maxNum = 2 ** 53 - 1;
-console.log(maxNum + 1);
-console.log(maxNum + 2);
+const grandpaAge = currentYear - GRANDPA_BIRTHYEAR;
+console.log(grandpaAge);
 
-const sandCount = 43774345756757567574567n;
-console.log(sandCount + 532323343242342342n);
+const MAX_NUM = 2 ** 53 - 1;
+console.log(BigInt(MAX_NUM * 2));
 
-const minNum = -(2 ** 53 - 1);
-// -9007199254740991
-console.log(minNum - 1);
-console.log(minNum - 2);
+const randomNum = 2 ** 4;
+console.log(randomNum); // 2 * 2 * 2 * 2
 
-const bacteriaDiameter = -4565656757745656456457n;
-console.log(bacteriaDiameter - 103n);
+const sum = 4 + 19;
+console.log(sum);
 
-// 3. String
-const currentUser = "John Doe";
-const pageLoadTime = "23ms";
-const userAddress = `9 Newcastle way, VI`;
+// 2. Assignment Operator
+// 	- Compound assignment
+let personAge = 10;
+console.log(personAge); // 10
+personAge += 1;
+console.log(personAge); // personAge + 1 = 11
+personAge -= 1;
+console.log(personAge); // personAge - 1 = 10
+personAge *= 2;
+console.log(personAge); // personAge * 2 =20
+personAge /= 2;
+console.log(personAge); // personAge / 2 = 10
 
-console.log(currentUser, pageLoadTime, userAddress);
+// 	- Increment/Decrement
 
-// 4. Boolen (Logical Type)
-console.log(true, false);
-const isOlder = 34 > 23;
-console.log(isOlder);
+// Postfix
+// Increment
+personAge++; // 10
+console.log(personAge); // 11
 
-const isYounger = 34 < 23;
-console.log(isYounger);
+// Decrement
+personAge--; // 11
+console.log(personAge); // 10
 
-// 5. Null
-let age = null;
-age = 45;
-console.log(age);
+// Prefix
+console.log(++personAge); // 11
+console.log(--personAge); // 10
 
-// 6. Undefined
-let personAge;
-console.log(personAge);
+// 3. Comparison Operator
+// greater than - >
+// less than - <
+// greater or equal - >=
+// less or equal <=
 
-let orderPrice = 1000;
-orderPrice = undefined;
-console.log(orderPrice);
+const ageJohn = 23;
+const agePaul = 56;
+const ageBob = 23;
+const ageMichael = 43;
 
-// 7. Symbol
-Symbol("id");
+console.log(ageJohn > agePaul); // false
+console.log(ageJohn < agePaul); // true
+console.log(ageJohn >= ageBob); // true
+console.log(ageMichael <= ageBob); // false
 
-// 8. Object
-const myTechStack = ["Bun", "Node", "Python"];
-myTechStack[1] = "Demo";
-console.log(myTechStack);
+// 4. String Concatenation
+const firstName = "Osagie";
+const lastName = "Bello";
 
-const personInfo = {
-	userName: "Michael",
-	age: 78,
-	hasKids: true,
-};
+// console.log(firstName + " " + lastName);
+console.log(`${firstName} ${lastName}`);
 
-personInfo.userName = "Osagie";
-console.log(personInfo);
+// 5. typeoof Operator
+console.log(typeof firstName); // string
+console.log(typeof ageJohn); // number
 
-// Typeof Operator
-console.log(typeof favoriteNumber);
-console.log(typeof userWeight);
-console.log(typeof sandCount);
-console.log(typeof currentUser);
-console.log(typeof isOlder);
-console.log(typeof age);
-console.log(typeof personAge);
-console.log(typeof myTechStack);
-console.log(typeof personInfo);
-console.log(typeof undefined);
-console.log(typeof {});
-console.log(typeof []);
-console.log(typeof null); // object
-console.log(typeof alert); // function
-console.log(typeof Math); // object
-console.log(typeof 10n);
-console.log(typeof (2 * 5));
+// 6. Parentheses (Grouping)
+const mediumAge = ageJohn + ageMichael / 2;
+// (23 + 43) / 2 = 44.5
+console.log(mediumAge);
+
+let sarahAge = 45;
+let jackAge = sarahAge; // 45
+
+sarahAge = jackAge = 34 + 76;
+console.log(sarahAge, jackAge);
+
+let x, y, z;
+x = y = z = 23;
+console.log(x, y, z);
+
+// Associativity (Execution Direction)
+const num = 10 - 4 - 2; // left to right
+console.log(num); // 4
+let a, b;
+a = b = 10 + 4; // right to left
+console.log(a, b); // 14, 14
