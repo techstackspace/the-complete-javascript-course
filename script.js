@@ -54,8 +54,8 @@ console.log(--personAge); // 10
 // 3. Comparison Operator
 // greater than - >
 // less than - <
-// greater or equal - >=
-// less or equal <=
+// greater than or equal - >=
+// less than or equal to <=
 
 const ageJohn = 23;
 const agePaul = 56;
@@ -74,7 +74,7 @@ const lastName = "Bello";
 // console.log(firstName + " " + lastName);
 console.log(`${firstName} ${lastName}`);
 
-// 5. typeoof Operator
+// 5. typeof Operator
 console.log(typeof firstName); // string
 console.log(typeof ageJohn); // number
 
