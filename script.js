@@ -7,6 +7,7 @@ console.log(10 + 5);
 // multiplication - *
 // division - /
 // exponentiation - **
+// remainder - %
 
 const GRANDPA_BIRTHYEAR = 1950;
 const currentYear = 2000;
@@ -15,13 +16,19 @@ const grandpaAge = currentYear - GRANDPA_BIRTHYEAR;
 console.log(grandpaAge);
 
 const MAX_NUM = 2 ** 53 - 1;
-console.log(BigInt(MAX_NUM * 2));
+console.log(BigInt(MAX_NUM) * 2n);
 
 const randomNum = 2 ** 4;
 console.log(randomNum); // 2 * 2 * 2 * 2
 
 const sum = 4 + 19;
 console.log(sum);
+
+const midpoint = sum / 2;
+console.log(midpoint); // 11.5
+
+const remainderSum = sum % 2;
+console.log(remainderSum); // 1
 
 // 2. Assignment Operator
 // 	- Compound assignment
@@ -94,8 +101,8 @@ x = y = z = 23;
 console.log(x, y, z);
 
 // Associativity (Execution Direction)
-const num = 10 - 4 - 2; // left to right
+const num = 10 - 4 - 2; // 10 - 4 = 6, 6 - 2 = 4 (left to right) | 4 assigned to num (right to left)
 console.log(num); // 4
-let a, b;
-a = b = 10 + 4; // right to left
+let a, b; // a = undefined, b = undefined (left to right)
+a = b = 10 + 4; // 10 + 4 = 14 (left to right) | 14 assigned to b, b value assigned to a (right to left)
 console.log(a, b); // 14, 14
