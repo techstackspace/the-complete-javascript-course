@@ -7,7 +7,7 @@ console.log(toNum); // 1
 const toStringValue = "34";
 console.log(+toStringValue); // Number(toStringValue) - 34
 
-console.log(typeof num, typeof toNum, typeof toStringValue); // number number string
+console.log(typeof num, typeof toNum, typeof toStringValue); // number, number, string
 
 const typeofValue = typeof num;
 console.log(typeof typeofValue); // string
