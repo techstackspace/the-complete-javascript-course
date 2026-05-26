@@ -1,37 +1,109 @@
-const num = +2; // +2 === 2
-console.log(num); // 2
+console.log(10 + 5);
 
-const toNum = +true;
-console.log(toNum); // 1
+// 1. Arithmetic (Math) Operator
 
-const toStringValue = "34";
-console.log(+toStringValue); // Number(toStringValue) - 34
+// addition - +
+// subtraction - -
+// multiplication - *
+// division - /
+// exponentiation - **
+// remainder - %
 
-console.log(typeof num, typeof toNum, typeof toStringValue); // number number string
+const GRANDPA_BIRTHYEAR = 1950;
+const currentYear = 2000;
 
-const typeofValue = typeof num;
-console.log(typeof typeofValue); // string
+const grandpaAge = currentYear - GRANDPA_BIRTHYEAR;
+console.log(grandpaAge);
 
-const personInfo = {
-	name: "John",
-	age: 55,
-	kids: ["Tom", "Jack", "Bob"],
-	isMarried: true,
-};
+const MAX_NUM = 2 ** 53 - 1;
+console.log(BigInt(MAX_NUM) * 2n);
 
-console.log(delete personInfo.name); // true
-console.log(personInfo); // { age: 55, kids: [ 'Tom', 'Jack', 'Bob' ], isMarried: true }
+const randomNum = 2 ** 4;
+console.log(randomNum); // 2 * 2 * 2 * 2
 
-console.log(delete personInfo.kids[1]); // true
-console.log(personInfo); // { age: 55, kids: [ 'Tom', empty, 'Bob' ], isMarried: true }
+const sum = 4 + 19;
+console.log(sum);
 
-console.log(void personInfo.age); // undefined;
-console.log(personInfo); // { age: 55, kids: [ 'Tom', empty, 'Bob' ], isMarried: true }
+const midpoint = sum / 2;
+console.log(midpoint); // 11.5
 
-console.log(void personInfo); // undefined
-console.log(personInfo); // { age: 55, kids: [ 'Tom', empty, 'Bob' ], isMarried: true }
+const remainderSum = sum % 2;
+console.log(remainderSum); // 1
 
-// x++
-let age = 34;
-age++; // 34 (age += 1)
-console.log(age); // 35
+// 2. Assignment Operator
+// 	- Compound assignment
+let personAge = 10;
+console.log(personAge); // 10
+personAge += 1;
+console.log(personAge); // personAge + 1 = 11
+personAge -= 1;
+console.log(personAge); // personAge - 1 = 10
+personAge *= 2;
+console.log(personAge); // personAge * 2 =20
+personAge /= 2;
+console.log(personAge); // personAge / 2 = 10
+
+// 	- Increment/Decrement
+
+// Postfix
+// Increment
+personAge++; // 10
+console.log(personAge); // 11
+
+// Decrement
+personAge--; // 11
+console.log(personAge); // 10
+
+// Prefix
+// Decrement
+console.log(++personAge); // 11
+console.log(--personAge); // 10
+
+// 3. Comparison Operator
+// greater than - >
+// less than - <
+// greater than or equal - >=
+// less than or equal to - <=
+
+const ageJohn = 23;
+const agePaul = 56;
+const ageBob = 23;
+const ageMichael = 43;
+
+console.log(ageJohn > agePaul); // false
+console.log(ageJohn < agePaul); // true
+console.log(ageJohn >= ageBob); // true
+console.log(ageMichael <= ageBob); // false
+
+// 4. String Concatenation
+const firstName = "Osagie";
+const lastName = "Bello";
+
+// console.log(firstName + " " + lastName);
+console.log(`${firstName} ${lastName}`);
+
+// 5. typeof Operator
+console.log(typeof firstName); // string
+console.log(typeof ageJohn); // number
+
+// 6. Parentheses (Grouping)
+const mediumAge = (ageJohn + ageMichael) / 2; // 33
+// 23 + (43 / 2) = 44.5
+console.log(mediumAge);
+
+let sarahAge = 45;
+let jackAge = sarahAge; // 45
+
+sarahAge = jackAge = 34 + 76;
+console.log(sarahAge, jackAge);
+
+let x, y, z;
+x = y = z = 23;
+console.log(x, y, z);
+
+// Associativity (Execution Direction)
+const num = 10 - 4 - 2; // 10 - 4 = 6, 6 - 2 = 4 (left to right) | 4 assigned to num (right to left)
+console.log(num); // 4
+let a, b; // a = undefined, b = undefined (left to right)
+a = b = 10 + 4; // 10 + 4 = 14 (left to right) | 14 assigned to b, b value assigned to a (right to left)
+console.log(a, b); // 14, 14
