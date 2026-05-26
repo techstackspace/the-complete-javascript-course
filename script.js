@@ -87,8 +87,8 @@ console.log(typeof firstName); // string
 console.log(typeof ageJohn); // number
 
 // 6. Parentheses (Grouping)
-const mediumAge = ageJohn + ageMichael / 2;
-// 23 + 43 / 2 = 44.5
+const mediumAge = (ageJohn + ageMichael) / 2; // 33
+// 23 + (43 / 2) = 44.5
 console.log(mediumAge);
 
 let sarahAge = 45;
