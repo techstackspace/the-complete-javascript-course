@@ -11,7 +11,7 @@ undefined;
 ("Hello");
 
 // String literal using single quotes
-("Hello");
+('Hello');
 
 // Declaring variables with string literals as values
 const firstName = "John",
