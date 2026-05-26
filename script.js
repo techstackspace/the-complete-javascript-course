@@ -1,102 +1,53 @@
-let favoriteNumber = 34; // number
-favoriteNumber = "69"; // string
-console.log(favoriteNumber);
+// Typing `undefined`
+undefined;
 
-// Data Types
-// 1. Number
-//    - Integer
-//    - Floating point
-//    - Infinity
-//    - -Infinity
-//    - NaN
+// A literal number value
+3;
 
-const userWeight = 34.6;
-console.log(userWeight, Infinity);
-console.log(2 / 0);
-console.log("This is a text" / 2);
-console.log(NaN ** 0);
-// *, /, -, +, ...
+// Addition using operands and operator
+3 + 5;
 
-// 2. BigInt
-console.log(2 ** 53 - 1);
-// 9007199254740991
+// String literal using double quotes
+("Hello");
 
-const maxNum = 2 ** 53 - 1;
-console.log(maxNum + 1);
-console.log(maxNum + 2);
+// String literal using single quotes
+("Hello");
 
-const sandCount = 43774345756757567574567n;
-console.log(sandCount + 532323343242342342n);
+// Declaring variables with string literals as values
+const firstName = "John",
+	lastName = "Doe";
 
-const minNum = -(2 ** 53 - 1);
-// -9007199254740991
-console.log(minNum - 1);
-console.log(minNum - 2);
+// Concatenating values together
+// firstName + " " + lastName;
+`${firstName} ${lastName}`;
 
-const bacteriaDiameter = -4565656757745656456457n;
-console.log(bacteriaDiameter - 103n);
+// Boolean literal
+true;
 
-// 3. String
-const currentUser = "John Doe";
-const pageLoadTime = "23ms";
-const userAddress = `9 Newcastle way, VI`;
+// Object literal
+({ name: "Bob" });
 
-console.log(currentUser, pageLoadTime, userAddress);
+// String literal
+("My name is John");
 
-// 4. Boolean (Logical Type)
-console.log(true, false);
-const isOlder = 34 > 23;
-console.log(isOlder);
+// Arithmetic expression
+2 + 3;
 
-const isYounger = 34 < 23;
-console.log(isYounger);
+// Variable declaration with a numeric value
+const a = 5;
 
-// 5. Null
-let age = null;
-age = 45;
-console.log(age);
+// Unary operator applied to operand `a`
+-a;
 
-// 6. Undefined
-let personAge;
-console.log(personAge);
+// Another variable declaration
+const b = 6;
 
-let orderPrice = 1000;
-orderPrice = undefined;
-console.log(orderPrice);
+// Addition using variables as operands
+a + b;
 
-// 7. Symbol
-Symbol("id");
+// Constant declaration
+const x = 2 + 3;
++x;
 
-// 8. Object
-const myTechStack = ["Bun", "Node", "Python"];
-myTechStack[1] = "Deno";
-console.log(myTechStack);
-
-const personInfo = {
-	userName: "Michael",
-	age: 78,
-	hasKids: true,
-};
-
-personInfo.userName = "Osagie";
-console.log(personInfo);
-
-// Typeof Operator
-console.log(typeof favoriteNumber);
-console.log(typeof userWeight);
-console.log(typeof sandCount);
-console.log(typeof currentUser);
-console.log(typeof isOlder);
-console.log(typeof age);
-console.log(typeof personAge);
-console.log(typeof myTechStack);
-console.log(typeof personInfo);
-console.log(typeof undefined);
-console.log(typeof {});
-console.log(typeof []);
-console.log(typeof null); // object
-console.log(typeof alert); // function
-console.log(typeof Math); // object
-console.log(typeof 10n);
-console.log(typeof (2 * 5));
-console.log(typeof Symbol());
+// Arithmetic expression again
+2 + 3;
