@@ -25,7 +25,7 @@ console.log(personInfo); // { age: 55, kids: [ 'Tom', 'Jack', 'Bob' ], isMarried
 console.log(delete personInfo.kids[1]); // true
 console.log(personInfo); // { age: 55, kids: [ 'Tom', empty, 'Bob' ], isMarried: true }
 
-console.log(void personInfo.age); // undefined;
+console.log(void personInfo.age); // undefined
 console.log(personInfo); // { age: 55, kids: [ 'Tom', empty, 'Bob' ], isMarried: true }
 
 console.log(void personInfo); // undefined
@@ -33,5 +33,5 @@ console.log(personInfo); // { age: 55, kids: [ 'Tom', empty, 'Bob' ], isMarried:
 
 // x++
 let age = 34;
-age++; // 34 (age += 1)
+age++; // (age += 1)
 console.log(age); // 35
