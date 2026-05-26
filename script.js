@@ -63,7 +63,7 @@ console.log(--personAge); // 10
 // greater than - >
 // less than - <
 // greater than or equal - >=
-// less than or equal to <=
+// less than or equal to - <=
 
 const ageJohn = 23;
 const agePaul = 56;
