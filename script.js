@@ -55,6 +55,7 @@ personAge--; // 11
 console.log(personAge); // 10
 
 // Prefix
+// Decrement
 console.log(++personAge); // 11
 console.log(--personAge); // 10
 
