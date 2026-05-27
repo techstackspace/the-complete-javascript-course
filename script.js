@@ -1,37 +1,42 @@
-const num = +2; // +2 === 2
-console.log(num); // 2
+// Type Coercion
+// 1. Implicit Coercion
+// 2. Explicit Coercion - Number(), String(), Boolean, BigInt()
 
-const toNum = +true;
-console.log(toNum); // 1
+// String to number
+console.log("5" - 2); // 3
 
-const toStringValue = "34";
-console.log(+toStringValue); // Number(toStringValue) - 34
+// Number to string
+// console.log("5" + 2); // 52
+console.log(`${5 + 2}`); // 7
 
-console.log(typeof num, typeof toNum, typeof toStringValue); // number, number, string
+// Boolean to number
+console.log(true + 1); // 2
+console.log(false + 1); // 1
 
-const typeofValue = typeof num;
-console.log(typeof typeofValue); // string
+// Loose equality (==)
+/*
+console.log("1" == 1); // true
+console.log(true == 1); // true
+*/
 
-const personInfo = {
-	name: "John",
-	age: 55,
-	kids: ["Tom", "Jack", "Bob"],
-	isMarried: true,
-};
+// Strict equality (===)
+console.log("1" === 1); // false
+console.log(true === 1); // fasle
 
-console.log(delete personInfo.name); // true
-console.log(personInfo); // { age: 55, kids: [ 'Tom', 'Jack', 'Bob' ], isMarried: true }
+// Boolean Context
+// if (condition statement) {
+// 	// body statement
+// } else {
+// 	// body statement
+// }
 
-console.log(delete personInfo.kids[1]); // true
-console.log(personInfo); // { age: 55, kids: [ 'Tom', empty, 'Bob' ], isMarried: true }
-
-console.log(void personInfo.age); // undefined
-console.log(personInfo); // { age: 55, kids: [ 'Tom', empty, 'Bob' ], isMarried: true }
-
-console.log(void personInfo); // undefined
-console.log(personInfo); // { age: 55, kids: [ 'Tom', empty, 'Bob' ], isMarried: true }
-
-// x++
-let age = 34;
-age++; // (age += 1)
-console.log(age); // 35
+console.log(Boolean(0));
+/*
+if (1) {
+	console.log("It is true");
+	// true statements here
+} else {
+	console.log("It is false");
+	// false statements here
+}
+*/
