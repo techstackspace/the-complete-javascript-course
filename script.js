@@ -86,7 +86,7 @@ const toNumb = Number(text);
 console.log(toNumb, typeof toNumb); // NaN, number
 
 const numberValue = "";
-const toBool = Boolean(numberValue); //
+const toBool = Boolean(numberValue);
 console.log(toBool, typeof toBool); // true, boolean
 
 const MAX_NUM = 2 ** 53 - 1;
