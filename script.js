@@ -1,6 +1,6 @@
 // Type Coercion
 // 1. Implicit Coercion
-// 2. Explicit Coercion - Number(), String(), Boolean, BigInt()
+// 2. Explicit Coercion - Number(), String(), Boolean(), BigInt()
 
 // String to number
 console.log("5" - 2); // 3
@@ -19,7 +19,7 @@ console.log(true == 1); // true */
 
 // Strict equality (===)
 console.log("1" === 1); // false
-console.log(true === 1); // fasle
+console.log(true === 1); // false
 
 // Boolean Context
 /* if (condition statement) {
