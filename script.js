@@ -32,7 +32,7 @@ console.log(true == 1); // true */
 
 // Strict equality (===)
 console.log("1" === 1); // false
-console.log(true === 1); // fasle
+console.log(true === 1); // false
 
 // Boolean Context
 /* if (condition statement) {
