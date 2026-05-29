@@ -2,13 +2,13 @@
 // 1. Implicit Coercion
 // 2. Explicit Coercion - Number(), String(), Boolean(), BigInt()
 
-// Comparison operators
+// - Comparison operators
 // less than - <
 // greater than - >
 // less than or equal to - <=
 // greater than or equal to - >=
 
-// Equality operators
+// - Equality operators
 // Loose equality (==)
 // Strict equality (===)
 // Not equal (!=)
@@ -57,9 +57,6 @@ console.log(6 + 9 - 3 - "5" + 6 - 4 + true); // 15 - 3 = 12, 12 - "5" = 7, 7 + 6
 
 // console.log("6" / "3" + 4 + "5"); // 2 + 4 = 6, "65"
 
-console.log(+null); // 0
-console.log(+undefined); // NaN
-
 console.log(null == undefined); // true
 console.log(null === undefined); // false
 
@@ -68,17 +65,13 @@ const b = "0";
 console.log(!!a == !!b); // false
 console.log(a == +b); // true */
 
-const isTrue = 0;
-console.log(!isTrue); // false
-console.log(!!isTrue); // true
-
 // console.log("hello" / 3); // NaN
 
 console.log(null == 0); // false
 console.log(null === 0); // false
 
-/* console.log("5" != 5); // false
-console.log("5" != 5); // true */
+// console.log("5" != 5); // false
+console.log("5" !== 5); // true
 
 console.log(4 + 2 + "8" / "2" - 3 * 2); // 4 + 2 + 4 - 6, 4
 
@@ -101,3 +94,10 @@ const MAX_SAFE_NUM = Number.MAX_SAFE_INTEGER;
 console.log(MAX_SAFE_NUM); // 9007199254740991
 console.log(BigInt(MAX_NUM) + 34n); // 9007199254741025n
 console.log(BigInt(MAX_NUM + 34)); // 9007199254741024n
+
+console.log(+null); // 0
+console.log(+undefined); // NaN
+
+const isTrue = 0;
+console.log(!isTrue); // false
+console.log(!!isTrue); // true
