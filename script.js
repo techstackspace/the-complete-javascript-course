@@ -1,46 +1,51 @@
-// Type Coercion
-// 1. Implicit Coercion
-// 2. Explicit Coercion - Number(), String(), Boolean(), BigInt()
+// Logical operators
+// - OR (||)
+// - AND (&&)
+// - NOT (!)
+// - Nullish Coalescing (??)
 
-// - Comparison operators
-// less than - <
-// greater than - >
-// less than or equal to - <=
-// greater than or equal to - >=
+// Falsy values - false, 0, -0, 0n, null, undefined, "", NaN
+// Truthy values - " ", 3, true, ...
 
-// - Equality operators
-// Loose equality (==)
-// Strict equality (===)
-// Not equal (!=)
-// Strict not equal (!==)
+// OR (||) operator
+// - Short-circuit
+console.log(0 || null || "Hello" || "Hi"); // Hello
+console.log(0 || null || undefined); // undefined
 
-console.log(5 > 2);
-console.log("5" > 2);
-console.log(+null); // 0
-console.log(null == undefined); // true
-console.log(null === undefined); // false
-console.log(null >= 0); // true
+// AND (&&) operator
+// - Short-circuit
+console.log("John" && " " && 45 && true && 0 && undefined && 1); // 0
+console.log("John" && " " && 45 && true); // true
 
-console.log("H" > "A"); // true
-console.log("party" > "part"); // true
-console.log("party" > "pert"); // false
-console.log("2" > "14"); // true
-console.log("2".codePointAt(0)); // 50
-console.log("1".codePointAt(0)); // 49
-console.log("hello");
-console.log("hello"[0]); // 'h'
-console.log("H".codePointAt(0)); // 72
-console.log("A".codePointAt(0)); // 65
-console.log("a".codePointAt(0)); // 97
-console.log("a" > "A"); // true
+// NOT (!) operator
+console.log(!true); // false
+console.log(!!true); // true
 
-console.log(undefined > 0); // false
-console.log(undefined >= 0); // false
-console.log(undefined < 0); // false
-// console.log(undefined == 0); // false
-console.log(undefined == null); // true
-console.log(undefined === null); // false
+console.log(!0); // true
+console.log(!!0); // false
 
-console.log("|".codePointAt(0)); // 124
-console.log("Z".codePointAt(0)); // 90
-console.log("z".codePointAt(0)); // 122
+// Nullish Coalescing (??) operator
+// - Short-circuit
+console.log(null ?? undefined ?? "Samuel"); // Samuel
+let name;
+const personName = name ?? null ?? "John" ?? undefined;
+console.log(personName); // John
+
+console.log(undefined ?? null); // null
+
+// Mixed Logical Expression
+console.log(
+	(null || undefined || 34 || (0 && "Hello")) ?? (undefined || "Hi") ?? "valid",
+);
+console.log(null || undefined || 34 || 0 || "Hi"); // 34
+console.log(
+	(null || undefined || 34 || (0 && "Hello")) ?? (undefined || "Hi") ?? "valid",
+);
+
+console.log(null || 34 || 0 || "Hi"); // 34
+
+const x = 1;
+const result = x >= 1 && `x is greater than or equal to ${x}`;
+console.log(result);
+
+console.log(null || !34 || 0 || "Hi"); // Hi
