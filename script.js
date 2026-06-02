@@ -1,51 +1,86 @@
-// Logical operators
-// - OR (||)
-// - AND (&&)
-// - NOT (!)
-// - Nullish Coalescing (??)
+// conditional Branching
+// if statement (clause) - if () {...}
+// Syntax
+/* 
+{} - block
+falsy values - 0, -0, 0n, "", undefined, false, NaN, null
+if (condition) {
+	statement(s) executed when the condition is true
+}
+*/
 
-// Falsy values - false, 0, -0, 0n, null, undefined, "", NaN
-// Truthy values - " ", 3, true, ...
+/* if (undefined) {
+	console.log("0 is falsy");
+	console.log("This won't run");
+}
+ */
 
-// OR (||) operator
-// - Short-circuit
-console.log(0 || null || "Hello" || "Hi"); // Hello
-console.log(0 || null || undefined); // undefined
+const ageJohn = "34";
+const isElder = ageJohn > 20;
+if (isElder) {
+	console.log("John is mark's elder brother");
+	console.log("Code will be executed");
+}
 
-// AND (&&) operator
-// - Short-circuit
-console.log("John" && " " && 45 && true && 0 && undefined && 1); // 0
-console.log("John" && " " && 45 && true); // true
+const ageSarah = 8;
+if (ageSarah > 18) {
+	console.log("Sarah has a driving licence");
+}
 
-// NOT (!) operator
-console.log(!true); // false
-console.log(!!true); // true
+// else statement (clause) - else {...}
+// if...else
+/* 
+if (condition) {
+	statement(s) executed when the condition is true
+} else {
+	statement(s) executed when the condition is false
+}
+ */
+if (ageSarah > 18) {
+	console.log("Sarah has a driving licence");
+} else {
+	console.log("Sarah is still a teenager");
+}
 
-console.log(!0); // true
-console.log(!!0); // false
+// else if statement (clause) - else if () {...}
+// else if ...
+/*
+if (condition1) {
+	statement(s) executed when the condition1 is true
+} else if (condition2) {
+	statement(s) executed when the condition2 is true
+}
+  ...
+} else {
+	statement(s) executed when none of the conditions are true
+}
+ */
+const workHour = 15;
 
-// Nullish Coalescing (??) operator
-// - Short-circuit
-console.log(null ?? undefined ?? "Samuel"); // Samuel
-let name;
-const personName = name ?? null ?? "John" ?? undefined;
-console.log(personName); // John
+if (workHour <= 9) {
+	console.log("Work hasn't started yet");
+} else if (workHour >= 12) {
+	console.log("Work is most likely started");
+} else {
+	console.log("It is public holiday");
+}
 
-console.log(undefined ?? null); // null
+const myAge = 34;
+if (myAge < 18) {
+	console.log("I am a teenager");
+} else if (myAge > 18 && myAge <= 30) {
+	console.log("He might be his elder brother");
+} else {
+	console.log("He is the eldest son of Sarah");
+}
 
-// Mixed Logical Expression
-console.log(
-	(null || undefined || 34 || (0 && "Hello")) ?? (undefined || "Hi") ?? "valid",
-);
-console.log(null || undefined || 34 || 0 || "Hi"); // 34
-console.log(
-	(null || undefined || 34 || (0 && "Hello")) ?? (undefined || "Hi") ?? "valid",
-);
-
-console.log(null || 34 || 0 || "Hi"); // 34
-
-const x = 1;
-const result = x >= 1 && `x is greater than or equal to ${x}`;
-console.log(result);
-
-console.log(null || !34 || 0 || "Hi"); // Hi
+const currentYear = 2080;
+if (currentYear < 2050) {
+	console.log("We are in the Quantum AI Era");
+} else if (currentYear === 2080) {
+	console.log("We are beyound the Quantum AI Era");
+} else if (currentYear >= 2080) {
+	console.log("We now have robots working for us");
+} else {
+	console.log("We are in the Generative AI Era");
+}
