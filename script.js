@@ -16,7 +16,8 @@ if (condition) {
 }
 */
 
-/* if (undefined) {
+/* 
+if (undefined) {
 	console.log("0 is falsy");
 	console.log("This won't run");
 }
@@ -37,6 +38,7 @@ if (ageSarah > 18) {
 console.log("----------else statement----------");
 // 2. else statement (clause) - else {...}
 // if...else
+// Syntax
 /* 
 if (condition) {
 	statement(s) executed when the condition is true
@@ -53,6 +55,7 @@ if (ageSarah > 18) {
 console.log("----------else if statement----------");
 // 3. else if statement (clause) - else if () {...}
 // else if ...
+// Syntax
 /*
 if (condition1) {
 	statement(s) executed when the condition1 is true
@@ -97,6 +100,7 @@ if (currentYear < 2050) {
 // 4. Ternary Statement
 // Ternary Operator (Conditional or question mark operator)
 console.log("----------Ternary statement----------");
+// Syntax
 /* 
 condition ? expression1 : expression2
 */
@@ -137,13 +141,15 @@ ageSarah > 18
 	? console.log("Sarah has a driving licence")
 	: console.log("Sarah is still a teenager");
 
-// const workHour = 15;
-
-/* condition1 ? expression1 :
+// Syntax
+/* 
+condition1 ? expression1 :
 condition2 ? expression2 :
 condition3 ? expression3 :
 ...
-expression(n) */
+expression(n) 
+*/
+// const workHour = 15;
 
 // if (workHour <= 9) {
 // 	console.log("Work hasn't started yet");
@@ -180,5 +186,102 @@ currentYear < 2050
 
 const isOlder =
 	ageSarah > 18 ? "Sarah has a driving licence" : "Sarah is still a teenager";
-
 console.log(isOlder);
+
+console.log("----------Switch Statement----------");
+
+// Syntax
+/* 
+switch (variable) {
+	case condition1:
+		statement(s)
+		[break]
+	case condition2: 
+		statement(s)
+		[break]
+	...
+	default:
+		statement(s)
+}
+*/
+
+const grade = "B";
+
+switch (grade) {
+	case "A":
+		console.log("Grade is A");
+		break;
+	case "B":
+		console.log("Grade is B");
+		break;
+	case "C":
+		console.log("Grade is C");
+		break;
+	default:
+		console.log("Grade is F");
+}
+
+switch (grade) {
+	case "A":
+		console.log("Grade is A");
+		break;
+	case "B":
+	case "C":
+		console.log("Grade B and Grade C");
+		break;
+	default:
+		console.log("Grade is F");
+}
+
+// const ageJohn = "34";
+// const isElder = ageJohn > 20;
+// if (isElder) {
+// 	console.log("John is mark's elder brother");
+// 	console.log("Code will be executed");
+// }
+
+switch (ageJohn) {
+	case ageJohn > 20:
+		console.log("John is mark's elder brother");
+		console.log("Code will be executed");
+		break;
+	default:
+		console.log("John is not mark brother");
+}
+
+// const currentYear = 2080;
+// if (currentYear < 2050) {
+// 	console.log("We are in the Quantum AI Era");
+// } else if (currentYear === 2080) {
+// 	console.log("We are beyound the Quantum AI Era");
+// } else if (currentYear >= 2080) {
+// 	console.log("We now have robots working for us");
+// } else {
+// 	console.log("We are in the Generative AI Era");
+// }
+
+switch (currentYear) {
+	case currentYear < 2050:
+		console.log("We are in the Quantum AI Era");
+		break;
+	case currentYear === 2080:
+		console.log("We are beyound the Quantum AI Era");
+		break;
+	case currentYear >= 2080:
+		console.log("We now have robots working for us");
+		break;
+	default:
+		console.log("We are in the Generative AI Era");
+}
+
+const num = 3;
+switch (num) {
+	case "3":
+		console.log("Three");
+		break;
+	case "4":
+		console.log("Four");
+		break;
+	default:
+		console.log("type 3 is different from type '3'");
+}
