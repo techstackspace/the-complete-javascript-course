@@ -188,6 +188,7 @@ const isOlder =
 	ageSarah > 18 ? "Sarah has a driving licence" : "Sarah is still a teenager";
 console.log(isOlder);
 
+// 5. Switch Statement
 console.log("----------Switch Statement----------");
 
 // Syntax
