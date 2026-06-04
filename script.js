@@ -50,16 +50,6 @@ if (ageSarah > 18) {
 }
 
 console.log("----------else statement----------");
-// 2. else statement (clause) - else {...}
-// if...else
-// Syntax
-/* 
-if (condition) {
-	statement(s) executed when the condition is true
-} else {
-	statement(s) executed when the condition is false
-}
- */
 
 let message;
 if (ageSarah > 18) {
@@ -71,20 +61,7 @@ if (ageSarah > 18) {
 console.log(message);
 
 console.log("----------else if statement----------");
-// 3. else if statement (clause) - else if () {...}
-// else if ...
-// Syntax
-/*
-if (condition1) {
-	statement(s) executed when the condition1 is true
-} else if (condition2) {
-	statement(s) executed when the condition2 is true
-}
-  ...
-} else {
-	statement(s) executed when none of the conditions are true
-}
- */
+
 const workHour = 15;
 let workStatusMessage;
 if (workHour <= 9) {
@@ -109,6 +86,7 @@ console.log(ageMessage);
 
 const currentYear = 2080;
 let eraMessage;
+
 if (currentYear < 2050) {
 	eraMessage = "We are in the Quantum AI Era";
 } else if (currentYear === 2080) {
@@ -119,3 +97,22 @@ if (currentYear < 2050) {
 	eraMessage = "We are in the Generative AI Era";
 }
 console.log(eraMessage);
+
+console.log("----------switch statement----------");
+const grade = "B";
+let gradeMessage;
+
+switch (grade) {
+	case "A":
+		gradeMessage = "Grade is A";
+		break;
+	case "B":
+		gradeMessage = "Grade is B";
+		break;
+	case "C":
+		gradeMessage = "Grade is C";
+		break;
+	default:
+		gradeMessage = "Grade is F";
+}
+console.log(gradeMessage);
