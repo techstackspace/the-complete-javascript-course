@@ -1,34 +1,48 @@
-// conditional Branching
-// 1. if statement
-// 2. if...else statement
-// 3. if...else if...else statement
-// 4. ternary statement
-// 5. switch statement
-// 6. nested if statement
-
-// 1. if statement (clause) - if () {...}
-// Syntax
+// Block Scope
 /* 
-{} - block
-falsy values - 0, -0, 0n, "", undefined, false, NaN, null
-if (condition) {
-	statement(s) executed when the condition is true
-}
+1. standalone block
+2. if block
+3. else block
+4. else if block
+5. for block
+6. while block
+7. do...while block
+8. switch block
+9. try block
+10. finally block
+11. catch block
+12. function body block
+13. arrow function block body
+14. class body block
+15. static initialization block
+16. module scope block
 */
-
-/* 
-if (undefined) {
-	console.log("0 is falsy");
-	console.log("This won't run");
+console.log("----------Block Scope----------");
+// {...}
+const greet = "Hello World"; // global variable
+{
+	const greet = "Good morning"; // local variable
+	console.log(greet);
 }
- */
+console.log(greet);
+{
+	const greet = "Good afternoon"; // local variable
+	console.log(greet);
+}
+
 console.log("----------if statement----------");
 const ageJohn = "34";
 const isElder = ageJohn > 20;
+let elderBrotherMessage;
+let executionMessage;
+
 if (isElder) {
-	console.log("John is mark's elder brother");
-	console.log("Code will be executed");
+	elderBrotherMessage = "John is mark's elder brother";
+	executionMessage = "Code will be executed";
 }
+
+console.log(elderBrotherMessage);
+console.log(executionMessage);
 
 const ageSarah = 8;
 if (ageSarah > 18) {
@@ -46,11 +60,15 @@ if (condition) {
 	statement(s) executed when the condition is false
 }
  */
+
+let message;
 if (ageSarah > 18) {
-	console.log("Sarah has a driving licence");
+	message = "Sarah has a driving licence";
 } else {
-	console.log("Sarah is still a teenager");
+	message = "Sarah is still a teenager";
 }
+
+console.log(message);
 
 console.log("----------else if statement----------");
 // 3. else if statement (clause) - else if () {...}
@@ -68,308 +86,36 @@ if (condition1) {
 }
  */
 const workHour = 15;
-
+let workStatusMessage;
 if (workHour <= 9) {
-	console.log("Work hasn't started yet");
+	workStatusMessage = "Work hasn't started yet";
 } else if (workHour >= 12) {
-	console.log("Work is most likely started");
+	workStatusMessage = "Work is most likely started";
 } else {
-	console.log("It is public holiday");
+	workStatusMessage = "It is public holiday";
 }
+console.log(workStatusMessage);
 
+let ageMessage;
 const myAge = 34;
 if (myAge < 18) {
-	console.log("I am a teenager");
+	ageMessage = "I am a teenager";
 } else if (myAge > 18 && myAge <= 30) {
-	console.log("He might be his elder brother");
+	ageMessage = "He might be his elder brother";
 } else {
-	console.log("He is the eldest son of Sarah");
+	ageMessage = "He is the eldest son of Sarah";
 }
+console.log(ageMessage);
 
 const currentYear = 2080;
+let eraMessage;
 if (currentYear < 2050) {
-	console.log("We are in the Quantum AI Era");
+	eraMessage = "We are in the Quantum AI Era";
 } else if (currentYear === 2080) {
-	console.log("We are beyound the Quantum AI Era");
+	eraMessage = "We are beyound the Quantum AI Era";
 } else if (currentYear >= 2080) {
-	console.log("We now have robots working for us");
+	eraMessage = "We now have robots working for us";
 } else {
-	console.log("We are in the Generative AI Era");
+	eraMessage = "We are in the Generative AI Era";
 }
-
-// 4. Ternary Statement
-// Ternary Operator (Conditional or question mark operator)
-console.log("----------Ternary statement----------");
-// Syntax
-/* 
-condition ? expression1 : expression2
-*/
-
-const ageMichael = 18;
-const ageBello = 24;
-
-const isYounger =
-	ageMichael < ageBello
-		? "Michael is younger than Bello"
-		: "Bello is younger than Michael";
-
-console.log(isYounger);
-
-// const ageJohn = "34";
-// const isElder = ageJohn > 20;
-if (isElder) {
-	console.log("John is mark's elder brother");
-	console.log("Code will be executed");
-}
-
-// isElder
-// 	? (console.log("John is mark's elder brother"),
-// 		console.log("Code will be executed"))
-// 	: console.log("Condition is false.");
-
-isElder
-	? console.log("John is mark's elder brother")
-	: console.log("Condition is false.");
-
-// const ageSarah = 8;
-// if (ageSarah > 18) {
-// 	console.log("Sarah has a driving license");
-// } else {
-// 	console.log("Sarah is still a teenager");
-// }
-ageSarah > 18
-	? console.log("Sarah has a driving licence")
-	: console.log("Sarah is still a teenager");
-
-// Syntax
-/* 
-condition1 ? expression1 :
-condition2 ? expression2 :
-condition3 ? expression3 :
-...
-expression(n) 
-*/
-// const workHour = 15;
-
-// if (workHour <= 9) {
-// 	console.log("Work hasn't started yet");
-// } else if (workHour >= 12) {
-// 	console.log("Work is most likely started");
-// } else {
-// 	console.log("It is public holiday");
-// }
-
-workHour <= 9
-	? console.log("Work hasn't started yet")
-	: workHour >= 12
-		? console.log("Work is most likely started")
-		: console.log("It is public holiday");
-
-// const currentYear = 2080;
-// if (currentYear < 2050) {
-// 	console.log("We are in the Quantum AI Era");
-// } else if (currentYear === 2080) {
-// 	console.log("We are beyound the Quantum AI Era");
-// } else if (currentYear >= 2080) {
-// 	console.log("We now have robots working for us");
-// } else {
-// 	console.log("We are in the Generative AI Era");
-// }
-
-currentYear < 2050
-	? console.log("We are in the Quantum AI Era")
-	: currentYear === 2080
-		? console.log("We are beyound the Quantum AI Era")
-		: currentYear >= 2080
-			? console.log("We now have robots working for us")
-			: console.log("We are in the Generative AI Era");
-
-const isOlder =
-	ageSarah > 18 ? "Sarah has a driving licence" : "Sarah is still a teenager";
-console.log(isOlder);
-
-// 5. Switch Statement
-console.log("----------Switch Statement----------");
-
-// Syntax
-/* 
-switch (variable) {
-	case condition1:
-		statement(s)
-		[break]
-	case condition2: 
-		statement(s)
-		[break]
-	...
-	default:
-		statement(s)
-}
-*/
-
-const grade = "B";
-
-switch (grade) {
-	case "A":
-		console.log("Grade is A");
-		break;
-	case "B":
-		console.log("Grade is B");
-		break;
-	case "C":
-		console.log("Grade is C");
-		break;
-	default:
-		console.log("Grade is F");
-}
-
-switch (grade) {
-	case "A":
-		console.log("Grade is A");
-		break;
-	case "B":
-	case "C":
-		console.log("Grade B and Grade C");
-		break;
-	default:
-		console.log("Grade is F");
-}
-
-// const ageJohn = "34";
-// const isElder = ageJohn > 20;
-// if (isElder) {
-// 	console.log("John is mark's elder brother");
-// 	console.log("Code will be executed");
-// }
-
-switch (ageJohn) {
-	case ageJohn > 20:
-		console.log("John is mark's elder brother");
-		console.log("Code will be executed");
-		break;
-	default:
-		console.log("John is not mark brother");
-}
-
-// const currentYear = 2080;
-// if (currentYear < 2050) {
-// 	console.log("We are in the Quantum AI Era");
-// } else if (currentYear === 2080) {
-// 	console.log("We are beyound the Quantum AI Era");
-// } else if (currentYear >= 2080) {
-// 	console.log("We now have robots working for us");
-// } else {
-// 	console.log("We are in the Generative AI Era");
-// }
-
-switch (currentYear) {
-	case currentYear < 2050:
-		console.log("We are in the Quantum AI Era");
-		break;
-	case currentYear === 2080:
-		console.log("We are beyound the Quantum AI Era");
-		break;
-	case currentYear >= 2080:
-		console.log("We now have robots working for us");
-		break;
-	default:
-		console.log("We are in the Generative AI Era");
-}
-
-const num = 3;
-switch (num) {
-	case "3":
-		console.log("Three");
-		break;
-	case "4":
-		console.log("Four");
-		break;
-	default:
-		console.log("type 3 is different from type '3'");
-}
-
-// 6. Nested if statements
-console.log("----------Nested if statements----------");
-
-// Syntax
-/* 
-if (condition1) {
-	statement1(s)
-	if (condition2) {
-		statement2(s)
-		if (condition3) {
-			statement3(s)
-			...
-			if (conditionN) {
-				statementN(s)
-			}
-		}
-	}
-}
-*/
-
-const personAge = 18;
-
-if (personAge >= 18) {
-	const hasPermission = true;
-	if (hasPermission) {
-		const isAuthenticated = true;
-		if (isAuthenticated) {
-			const userName = "John Doe";
-			if (userName) {
-				console.log(`User, ${userName} can have access to the website`);
-			}
-		}
-	}
-}
-
-const hasPermission = true;
-const isAuthenticated = true;
-const userName = "Osagie Bello";
-
-if (personAge >= 18 && hasPermission && isAuthenticated && userName) {
-	console.log(`User, ${userName} can have access to the website`);
-}
-
-console.log("----------Nullish Coalescing vs Alternatives----------");
-
-const a = null;
-const b = "falling value";
-
-console.log(a ?? b);
-
-// if...else
-
-if (a !== null && a !== undefined) {
-	console.log(a);
-} else {
-	console.log(b);
-}
-
-// ternary
-const c = a !== null && a !== undefined ? a : b;
-console.log(c);
-
-// switch
-switch (a) {
-	case null:
-	case undefined:
-		console.log(b);
-		break;
-	default:
-		console.log(a);
-}
-
-// nested if
-if (a !== null) {
-	if (a !== undefined) {
-		console.log(a);
-	} else {
-		console.log(b);
-	}
-} else {
-	console.log(b);
-}
-
-// logical OR
-const d = a === null || a === undefined ? b : a;
-console.log(d);
+console.log(eraMessage);
