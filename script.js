@@ -116,3 +116,27 @@ switch (grade) {
 		gradeMessage = "Grade is F";
 }
 console.log(gradeMessage);
+
+console.log("----------Nested if statements----------");
+const personAge = 18;
+
+if (personAge >= 18) {
+	const hasPermission = true;
+	if (hasPermission) {
+		const isAuthenticated = true;
+		if (isAuthenticated) {
+			const userName = "John Doe";
+			if (userName) {
+				console.log(`User, ${userName} can have access to the website`);
+			}
+		}
+	}
+}
+
+const hasPermission = true;
+const isAuthenticated = true;
+const userName = "Osagie Bello";
+
+if (personAge >= 18 && hasPermission && isAuthenticated && userName) {
+	console.log(`User, ${userName} can have access to the website`);
+}
