@@ -329,3 +329,47 @@ const userName = "Osagie Bello";
 if (personAge >= 18 && hasPermission && isAuthenticated && userName) {
 	console.log(`User, ${userName} can have access to the website`);
 }
+
+console.log("----------Nullish Coalescing vs Alternatives----------");
+
+const a = null;
+const b = "falling value";
+
+console.log(a ?? b);
+
+// if...else
+
+if (a !== null && a !== undefined) {
+	console.log(a);
+} else {
+	console.log(b);
+}
+
+// ternary
+const c = a !== null && a !== undefined ? a : b;
+console.log(c);
+
+// switch
+switch (a) {
+	case null:
+	case undefined:
+		console.log(b);
+		break;
+	default:
+		console.log(a);
+}
+
+// nested if
+if (a !== null) {
+	if (a !== undefined) {
+		console.log(a);
+	} else {
+		console.log(b);
+	}
+} else {
+	console.log(b);
+}
+
+// logical OR
+const d = a === null || a === undefined ? b : a;
+console.log(d);
