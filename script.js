@@ -286,3 +286,46 @@ switch (num) {
 	default:
 		console.log("type 3 is different from type '3'");
 }
+
+// 6. Nested if statements
+console.log("----------Nested if statements----------");
+
+// Syntax
+/* 
+if (condition1) {
+	statement1(s)
+	if (condition2) {
+		statement2(s)
+		if (condition3) {
+			statement3(s)
+			...
+			if (conditionN) {
+				statementN(s)
+			}
+		}
+	}
+}
+*/
+
+const personAge = 18;
+
+if (personAge >= 18) {
+	const hasPermission = true;
+	if (hasPermission) {
+		const isAuthenticated = true;
+		if (isAuthenticated) {
+			const userName = "John Doe";
+			if (userName) {
+				console.log(`User, ${userName} can have access to the website`);
+			}
+		}
+	}
+}
+
+const hasPermission = true;
+const isAuthenticated = true;
+const userName = "Osagie Bello";
+
+if (personAge >= 18 && hasPermission && isAuthenticated && userName) {
+	console.log(`User, ${userName} can have access to the website`);
+}
