@@ -4,21 +4,23 @@
 2. if block
 3. else block
 4. else if block
-5. for block
-6. while block
-7. do...while block
-8. switch block
-9. try block
-10. finally block
-11. catch block
-12. function body block
-13. arrow function block body
+5. switch block
+6. for block
+7. while block
+8. do...while block
+9. function body block
+10. arrow function block body
+11. try block
+12. finally block
+13. catch block
 14. class body block
 15. static initialization block
 16. module scope block
 */
-console.log("----------Block Scope----------");
+
+console.log("----------standalone block----------");
 // {...}
+// Variable Shadowing
 const greet = "Hello World"; // global variable
 {
 	const greet = "Good morning"; // local variable
@@ -30,7 +32,8 @@ console.log(greet);
 	console.log(greet);
 }
 
-console.log("----------if statement----------");
+console.log("----------if block----------");
+// Scope Chaining
 const ageJohn = "34";
 const isElder = ageJohn > 20;
 let elderBrotherMessage;
@@ -49,7 +52,7 @@ if (ageSarah > 18) {
 	console.log("Sarah has a driving licence");
 }
 
-console.log("----------else statement----------");
+console.log("----------else block----------");
 
 let message;
 if (ageSarah > 18) {
@@ -60,7 +63,7 @@ if (ageSarah > 18) {
 
 console.log(message);
 
-console.log("----------else if statement----------");
+console.log("----------else if block----------");
 
 const workHour = 15;
 let workStatusMessage;
@@ -98,7 +101,7 @@ if (currentYear < 2050) {
 }
 console.log(eraMessage);
 
-console.log("----------switch statement----------");
+console.log("----------switch block----------");
 const grade = "B";
 let gradeMessage;
 
@@ -117,7 +120,7 @@ switch (grade) {
 }
 console.log(gradeMessage);
 
-console.log("----------Nested if statements----------");
+console.log("----------Nested if blocks----------");
 const personAge = 18;
 
 if (personAge >= 18) {
