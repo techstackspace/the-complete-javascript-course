@@ -143,3 +143,75 @@ const userName = "Osagie Bello";
 if (personAge >= 18 && hasPermission && isAuthenticated && userName) {
 	console.log(`User, ${userName} can have access to the website`);
 }
+
+console.log("----------while block----------");
+/* 
+while (condition) {
+	// loop body
+}
+*/
+
+let idx = 0;
+while (idx < 3) {
+	console.log(idx); // 0 1 2
+	idx++;
+}
+
+console.log("----");
+
+let i = 3;
+while (i) {
+	console.log(i); // 3 2 1
+	i--;
+}
+
+console.log("----------do...while block----------");
+/*  
+do {
+	// loop body
+} while (condition)
+*/
+
+const num = 0;
+
+do {
+	console.log(num); // 0
+} while (num);
+
+console.log("----");
+
+let index = 0;
+do {
+	console.log(index); // 0 1 2
+	index++;
+} while (index < 3);
+
+console.log("----------for block----------");
+/* 
+for (initialization; condition; step) {
+	loop body
+}
+*/
+
+for (let i = 0; i < 3; i++) {
+	console.log(i); // 0 1 2
+}
+
+console.log("----");
+
+// WET principle
+let indexValue = 3;
+if (indexValue > 0) {
+	console.log(indexValue); // 3
+	indexValue--;
+}
+
+if (indexValue > 0) {
+	console.log(indexValue); // 2
+	indexValue--;
+}
+
+if (indexValue > 0) {
+	console.log(indexValue); // 1
+	indexValue--;
+}
