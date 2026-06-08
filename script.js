@@ -18,6 +18,11 @@
 16. module scope block
 */
 
+/* 
+When a block has one statement, you can write it all in one statement without braces, 
+or simply omit the braces and keep the statement at its initial line.
+*/
+
 console.log("----------standalone block----------");
 // {...}
 // Variable Shadowing
@@ -191,11 +196,23 @@ console.log("----------for block----------");
 for (initialization; condition; step) {
 	loop body
 }
+
+initialization
+for (; condition;) {
+	statements
+	step
+}
 */
 
 for (let i = 0; i < 3; i++) {
 	console.log(i); // 0 1 2
 }
+
+// let idxValue = 0;
+// for (; idxValue < 3; ) {
+// 	idxValue++;
+// 	console.log(idxValue); // 0 1 2
+// }
 
 console.log("----");
 
@@ -214,4 +231,46 @@ if (indexValue > 0) {
 if (indexValue > 0) {
 	console.log(indexValue); // 1
 	indexValue--;
+}
+
+// break, label and continue
+// break directive and labeled break
+
+multiplicationTable: for (let multiplier = 1; multiplier <= 10; multiplier++) {
+	for (let multiplicand = 1; multiplicand <= 12; multiplicand++) {
+		console.log(
+			`${multiplier} * ${multiplicand} = ${multiplier * multiplicand}`,
+		);
+		if (multiplier === 5 && multiplicand === 5) {
+			break multiplicationTable;
+		}
+	}
+}
+
+for (let number = 2; number <= 10; number++) {
+	let isPrime = true;
+	for (let divisor = 2; divisor < number; divisor++) {
+		if (number % divisor === 0) {
+			isPrime = false;
+			break;
+		}
+	}
+	if (isPrime) {
+		console.log(`${number} is a prime number`);
+	}
+}
+
+// continue directive
+
+for (let number = 1; number <= 15; number++) {
+	if (number % 2 === 0) {
+		console.log(`Number is even = ${number}`);
+	} else {
+		console.log(`Number is odd = ${number}`);
+	}
+}
+
+for (let number = 1; number <= 15; number++) {
+	if (number % 2 === 0) continue;
+	else console.log(number);
 }
