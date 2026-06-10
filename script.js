@@ -210,8 +210,8 @@ for (let i = 0; i < 3; i++) {
 
 // let idxValue = 0;
 // for (; idxValue < 3; ) {
-// 	idxValue++;
 // 	console.log(idxValue); // 0 1 2
+// 	idxValue++;
 // }
 
 console.log("----");
@@ -233,9 +233,7 @@ if (indexValue > 0) {
 	indexValue--;
 }
 
-// break, label and continue
 // break directive and labeled break
-
 multiplicationTable: for (let multiplier = 1; multiplier <= 10; multiplier++) {
 	for (let multiplicand = 1; multiplicand <= 12; multiplicand++) {
 		console.log(
@@ -260,8 +258,7 @@ for (let number = 2; number <= 10; number++) {
 	}
 }
 
-// continue directive
-
+// continue directive and labeled continue
 for (let number = 1; number <= 15; number++) {
 	if (number % 2 === 0) {
 		console.log(`Number is even = ${number}`);
@@ -274,3 +271,53 @@ for (let number = 1; number <= 15; number++) {
 	if (number % 2 === 0) continue;
 	else console.log(number);
 }
+
+nextPrime: for (let number = 2; number <= 10; number++) {
+	for (let divisor = 2; divisor < number; divisor++) {
+		if (number % divisor === 0) {
+			continue nextPrime;
+		}
+	}
+	console.log(`${number} is a prime number`);
+}
+
+// let sum = 0;
+// while (true) {
+// 	const number = +prompt("Enter a number: ");
+// 	// 3, 4, 3
+// 	// sum = 0 + 3, sum = 3 + 4, sum = 7 + 3
+// 	sum += number;
+// 	if (number === 0) {
+// 		break;
+// 	}
+// }
+
+// let sum = 0;
+// for (;;) {
+// 	const number = +prompt("Enter a number: ");
+// 	sum += number;
+// 	if (number === 0) {
+// 		break;
+// 	}
+// }
+
+// console.log(sum)
+// alert(sum);
+
+// let password = "";
+// while (password !== "secret") {
+// 	password = prompt("Enter password: ");
+// }
+
+// alert(`${password} is correct!`);
+
+// let sum = 0;
+// for (let i = 0; i < 3; i++) {
+// 	const number = +prompt("Enter a number: ");
+// 	sum += number;
+// 	if (number === 0) {
+// 		break;
+// 	}
+// }
+
+// alert(sum);
