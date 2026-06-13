@@ -327,7 +327,7 @@ console.log("----------function body block----------");
 // 1. Function declaration
 
 /* 
-- without parameter
+- without parameter(s)
 function functionName() {
 	// body
 }
@@ -345,7 +345,7 @@ const result = addNumbers();
 console.log(result); // displays 9 and returns undefined
 
 /* 
-- with parameter
+- with parameter(s)
 function functionName(param1, param2, ...) {
 	// body
 }
@@ -465,3 +465,72 @@ console.log(!!{}); // true
 console(typeof typeof 42) // string
 typeof 42 // "number"
  */
+
+/* 
+2. 
+Function Expression (Named)
+- without parameter(s)
+variable = function functionName() {
+	// body
+}
+variable()	
+
+Function Expression (Anonymous)
+variable = function() {
+	// body
+}
+variable()
+
+- with parameter(s)
+variable = function functionName(param1, param2, ...) {
+	// body
+}
+variable(arg1, arg2, ...)	
+
+Function Expression (Anonymous)
+variable = function(param1, param2, ...) {
+	// body
+}
+variable(arg1, arg2, ...)
+*/
+
+const getTotalNumber = function calculateSumNumbers(num1, num2) {
+	return num1 + num2;
+};
+console.log(getTotalNumber(2, 5));
+
+// const getSumNumber = function (num1, num2) {
+// 	return num1 + num2;
+// };
+// console.log(getSumNumber(2, 5));
+
+/* 
+3. Arrow Function
+- without parameter(s)
+variable = () => {
+	// body
+}
+variable()	
+
+variable = () => statement
+variable()
+
+- with parameter(s)
+variable = (param1, param2, ...) => {
+	// body
+}
+variable(arg1, arg2, ...)	
+
+variable = (param1, param2, ...) => statement
+variable(arg1, arg2, ...)
+*/
+
+const multiply = (num1, num2) => {
+	return num1 * num2;
+};
+
+console.log(multiply(3, 4)); // 12
+
+const multiply_ = (num1, num2) => num1 * num2;
+
+console.log(multiply_(3, 4)); // 12
