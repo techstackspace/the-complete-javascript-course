@@ -19,8 +19,9 @@
 */
 
 /* 
-When a block has one statement, you can write it all in one statement without braces, 
+1. When a block has one statement, you can write it all in one statement without braces, 
 or simply omit the braces and keep the statement at its initial line.
+2. Any statement after the return statement won't be reached
 */
 
 console.log("----------standalone block----------");
@@ -321,3 +322,146 @@ nextPrime: for (let number = 2; number <= 10; number++) {
 // }
 
 // alert(sum);
+
+console.log("----------function body block----------");
+// 1. Function declaration
+
+/* 
+- without parameter
+function functionName() {
+	// body
+}
+
+functionName()
+*/
+
+function addNumbers() {
+	const num1 = 4;
+	const num2 = 5;
+	console.log(num1 + num2);
+}
+
+const result = addNumbers();
+console.log(result); // displays 9 and returns undefined
+
+/* 
+- with parameter
+function functionName(param1, param2, ...) {
+	// body
+}
+
+functionName(arg1, arg2, ...)
+*/
+
+/* 
+- Default values
+*/
+function addTwoNumbers(num1 = 5, num2) {
+	console.log(typeof num1, typeof num2);
+	console.log(num1 + num2); // 30
+}
+
+const sum = addTwoNumbers(10, 20);
+console.log(sum);
+console.log(addTwoNumbers(4, 1));
+console.log(addTwoNumbers(1, 1));
+
+const add = addTwoNumbers(1, 1) + 3;
+console.log(add);
+
+/* 
+- Return a value
+*/
+
+function calculateSum(num1, num2) {
+	return num1 + num2;
+}
+
+const calcSum = calculateSum(2, 1);
+console.log(calcSum + 2); // 3 + 2 = 5
+
+function isUserEligibleToVote(age, citizenshipYear) {
+	return age > 18 && citizenshipYear > 5;
+}
+
+console.log(isUserEligibleToVote(20, 7));
+console.log(isUserEligibleToVote(10, 7));
+
+// Variable shadowing in function
+const num1 = 10;
+function getUserId(num1) {
+	return `User id is ${num1}`;
+}
+console.log(num1); // 10
+
+const id = getUserId(5);
+console.log(id); // User id is 5
+
+// Scope chaining in function
+const globalVar = "Global";
+
+function outerFunction() {
+	const outerVar = "Outer";
+
+	function innerFunction() {
+		const innerVar = "Inner";
+
+		console.log(innerVar); // Inner
+		console.log(outerVar); // Outer
+		console.log(globalVar); // Global
+	}
+	innerFunction();
+}
+
+outerFunction();
+
+/* 
+- Returns nothing (undefined)
+*/
+
+function sumTwoNumbers(num1 = 5, num2 = 4) {
+	console.log(typeof num1, typeof num2);
+	console.log(num1 + num2);
+	return;
+}
+
+const sumNumbers = sumTwoNumbers(10, 20);
+console.log(sumNumbers);
+
+function getSum() {
+	const num1 = 4;
+	const num2 = 5;
+	console.log(num1 + num2);
+	return undefined;
+}
+
+const number = getSum();
+console.log(number);
+
+// Guard clause pattern
+function getPersonAge(person) {
+	// check if the person exists and has an age property
+	let personAge;
+	if (!person || typeof person.age !== "number") {
+		personAge = null;
+	} else {
+		personAge = person.age;
+	}
+	return personAge;
+	// console.log("hello");
+}
+
+const alice = {
+	name: "Alice",
+	age: 30,
+};
+
+console.log(getPersonAge(alice)); // 30
+console.log(getPersonAge({})); // null
+console.log(getPersonAge(4)); // null
+
+/* 
+console.log(!!{}); // true
+console(typeof typeof 42) // string
+typeof 42 // "number"
+ */
