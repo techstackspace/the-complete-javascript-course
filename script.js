@@ -113,7 +113,8 @@ IfBlockLexicalEnvironment ≈ {
 
 If block finishes:
 
-Garbage Collection Eligibility: Yes
+Garbage Collection Eligibility:
+	IfBlockLexicalEnvironment: Yes
 */
 
 let ageMessage;
