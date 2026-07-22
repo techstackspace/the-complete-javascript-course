@@ -141,7 +141,7 @@ GlobalLexicalEnvironment ≈ {
 	OuterEnvironmentReference: null
 }
 
-if...else statements finishes:
+Each branch has its own block lexical environment:
 
 IfBlockLexicalEnvironment ≈ {
 	EnvironmentRecord: {},
@@ -155,6 +155,8 @@ ElseBlockLexicalEnvironment ≈ {
 	EnvironmentRecord: {},
 	OuterEnvironmentReference: GlobalLexicalEnvironment
 }
+
+if...else statements finishes:
 
 Garbage Collection Eligibility: 
 	IfBlockLexicalEnvironment: Yes
