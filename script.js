@@ -43,9 +43,9 @@ Lexical Environment rules
 const personName = "Bob";
 const showMessage = (day) => {
 	const personName = "Henry";
-	return `Hello ${personName}, today is ${day}`; // Hello Henry, today is Thursday
+	return `Hello ${personName}, today is ${day}`; // "Hello Henry, today is Thursday"
 };
-console.log(personName); // Bob
+console.log(personName); // "Bob"
 
 /* 
 When showMessage (and personName) is defined:
@@ -135,7 +135,7 @@ At this point:
 
 GlobalLexicalEnvironment ≈ {
 	EnvironmentRecord: {
-		ageMessage: undefined -> He might the eldest son of sarah,
+		ageMessage: undefined -> "He might the eldest son of sarah",
 		myAge: 34
 	},
 	OuterEnvironmentReference: null
