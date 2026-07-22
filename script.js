@@ -25,213 +25,130 @@ or simply omit the braces and keep the statement at its initial line.
 */
 
 /* 
-Scope chaining
-innermost scope -> outer scope -> ... -> global scope -> null (stop)
+Scope chain:
+inner (current) scope -> outer scope -> ... -> global scope -> null (end)
 
 Lexical Environment (2 parts)
-1. EnvironmentRecord - stores variables, parameters, and functions
-2. OuterEnvironmentReference - links to the parent scope
+1. EnvironmentRecord - stores bindings (variables, parameters, functions)
+2. OuterEnvironmentReference - points to the next outer lexical environment
+*/
 
+/* 
 Lexical Environment rules
-1. Function remember where they are defined
-2. Block remember their enclosing scope chain
-3. Name lookup goes from the inner scope outward to the global scope
+1. Functions remember the lexical environment where they are defined (closure)
+2. Blocks remember their enclosing lexical environment
+3. Name lookup walks the scope chain from inner scope outward to the global scope
 */
 
 const personName = "Bob";
 const showMessage = (day) => {
-	return `Hello ${personName}, today is ${day}`;
+	const personName = "Henry";
+	return `Hello ${personName}, today is ${day}`; // Hello Henry, today is Thursday
 };
+console.log(personName); // Bob
 
 /* 
-When the function, showMessage() is created
-GlobalLexicalEnvironment = creation-time lexical environment
-GlobalLexicalEnvironment = {
+When showMessage (and personName) is defined:
+
+GlobalLexicalEnvironment (creation-time) ≈ {
 	EnvironmentRecord: {
-		personName: "Bob",
+		personName: "Bob"
 		showMessage: <function>
 	},
-	OuterEnvironmentReference: null,
+	OuterEnvironmentReference: null
 }
 
-showMessage = {
-	[[Environment]]: GlobalLexicalEnvironment
+showMessage ≈ {
+	[[Environment]]: GlobalLexicalEnvironment,
 }
-or
 showMessage.[[Environment]] -> GlobalLexicalEnvironment
 */
 
 console.dir(showMessage);
 
 /* 
-During the function, showMessage() call
-- Function call, showMessage() is pushed onto the call-stack
-- FunctionLexicalEnvironment = call-time lexical environment
-FunctionLexicalEnvironment = {
-	EnvironmentRecord: {
-		day: "Thursday"
-	},
-	OuterEnvironmentReference: GlobalLexicalEnvironment
+During a call to showMessage("Thursday"):
+
+- The function call is pushed onto the call stack
+- A new lexical environment is created for for this call
+
+FunctionExecutionContext (call-time) ≈ {
+	FunctionLexicalEnvironment: {
+		EnvironmentRecord: {
+			day: "Thursday",
+			parsonName: "Henry"
+		},
+		OuterEnvironmentReference: GlobalLexicalEnvironment,
+	}
 }
 */
 console.log(showMessage("Thursday"));
 
 /* 
-After the function, showMessage() is called
-- Function call, showMessage() is popped off from the call-stack
-- Check for garbage collection?
-*/
-
-const showMessage_ = (day) => {
-	const personName = "Bob";
-	return `Hello ${personName}, today is ${day}`;
-};
-
-/* 
-When the function, showMessage_() is created
-GlobalLexicalEnvironment = {
-	EnvironmentRecord: {
-		showMessage_: <function>
-	},
-	OuterEnvironmentReference: null,
-}
-
-showMessage_ = {
-	[[Environment]]: GlobalLexicalEnvironment
-}
-*/
-console.dir(showMessage_);
-/* 
-During the function, showMessage_() call
-- Function call, showMessage_() is pushed onto the call-stack
-- FunctionLexicalEnvironment = call-time lexical environment
-FunctionLexicalEnvironment = {
-	EnvironmentRecord: {
-		day: "Thursday",
-		personName: "Bob"
-	},
-	OuterEnvironmentReference: GlobalLexicalEnvironment
-}
-*/
-console.log(showMessage_("Friday"));
-
-/* 
-After the function, showMessage_() is called
-- Function call, showMessage_() is popped off from the call-stack
-- Check for garbage collection?
+After the call to showMessage:
+- The function call is popped off the call stack
+- Garbage Collection Eligibility:
+	GlobalLexicalEnvironment: No,
+	FunctionLexicalEnvironment: Yes
 */
 
 const username = "Osagie";
+
 if (username === "Osagie") {
-	console.log(`Welcome ${username}`);
+	console.log(`Welcome ${username}, you may have your licence`);
 }
 
 /* 
-GlobalLexicalEnvironment = {
+GlobalLexicalEnvironment ≈ {
 	EnvironmentRecord: {
 		username: "Osagie"
 	},
-	OuterEnvironmentReference: null,
+	OuterEnvironmentReference: null
 }
 
-IfBlockLexicalEnvironment = {
+IfBlockLexicalEnvironment ≈ {
 	EnvironmentRecord: {},
 	OuterEnvironmentReference: GlobalLexicalEnvironment
 }
-*/
 
-/* 
-When the if statement finishes
-- Check for garbage collection?
+If block finishes:
+Garbage Collection Eligibility: Yes
 */
 
 let ageMessage;
 const myAge = 34;
+
 if (myAge < 18) {
 	ageMessage = "I am a teenager";
 } else if (myAge > 18 && myAge <= 30) {
 	ageMessage = "He might be his elder brother";
 } else {
-	ageMessage = "He is the eldest son of Sarah";
+	ageMessage = "He might the eldest son of sarah";
 }
+
 console.log(ageMessage);
 
 /* 
-GlobalLexicalEnvironment = {
+GlobalLexicalEnvironment ≈ {
 	EnvironmentRecord: {
-		ageMessage: undefined,
+		ageMessage: undefined -> He might the eldest son of sarah,
 		myAge: 34
 	},
-	OuterEnvironmentReference: null,
+	OuterEnvironmentReference: null
 }
 
-- Each branch has its own block lexical environment, not one shared environment.
-
-IfBlockLexicalEnvironment = {
+IfBlockLexicalEnvironment ≈ {
+	EnvironmentRecord: {},
+	OuterEnvironmentReference: GlobalLexicalEnvironment
+}
+ElseIfBlockLexicalEnvironment ≈ {
+	EnvironmentRecord: {},
+	OuterEnvironmentReference: GlobalLexicalEnvironment
+}
+ElseBlockLexicalEnvironment ≈ {
 	EnvironmentRecord: {},
 	OuterEnvironmentReference: GlobalLexicalEnvironment
 }
 
-ElseIfBlockLexicalEnvironment = {
-	EnvironmentRecord: {},
-	OuterEnvironmentReference: GlobalLexicalEnvironment
-}
-
-ElseBlockLexicalEnvironment = {
-	EnvironmentRecord: {},
-	OuterEnvironmentReference: GlobalLexicalEnvironment
-}
-*/
-
-/* 
-When if...else statement finishes
-- Check for garbage collection?
-*/
-
-function getAgeMessage() {
-	let ageMessage;
-	const myAge = 34;
-	if (myAge < 18) {
-		ageMessage = "I am a teenager";
-	} else if (myAge > 18 && myAge <= 30) {
-		ageMessage = "He might be his elder brother";
-	} else {
-		ageMessage = "He is the eldest son of Sarah";
-	}
-	return ageMessage;
-}
-
-/* 
-When the function, showMessage_() is created
-GlobalLexicalEnvironment = {
-	EnvironmentRecord: {
-		getAgeMessage: <function>
-	},
-	OuterEnvironmentReference: null,
-}
-
-getAgeMessage = {
-	[[Environment]]: GlobalLexicalEnvironment
-}
-*/
-console.dir(getAgeMessage);
-
-/* 
-During the function, getAgeMessage() call
-- Function call, getAgeMessage() is pushed onto the call-stack
-- FunctionLexicalEnvironment = call-time lexical environment
-FunctionLexicalEnvironment = {
-	EnvironmentRecord: {
-		ageMessage: "He is the eldest son of Sarah",
-		myAge: 34
-	},
-	OuterEnvironmentReference: GlobalLexicalEnvironment
-}
-*/
-console.log(getAgeMessage());
-
-/* 
-After the function, getAgeMessage() is called
-- Function call, getAgeMessage() is popped off from the call-stack
-- Check for garbage collection?
+Garbage Collection Eligibility: Yes
 */
