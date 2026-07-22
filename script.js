@@ -76,7 +76,7 @@ FunctionExecutionContext (call-time) ≈ {
 	FunctionLexicalEnvironment: {
 		EnvironmentRecord: {
 			day: "Thursday",
-			parsonName: "Henry"
+			personName: "Henry"
 		},
 		OuterEnvironmentReference: GlobalLexicalEnvironment,
 	}
@@ -112,6 +112,7 @@ IfBlockLexicalEnvironment ≈ {
 }
 
 If block finishes:
+
 Garbage Collection Eligibility: Yes
 */
 
@@ -129,6 +130,8 @@ if (myAge < 18) {
 console.log(ageMessage);
 
 /* 
+At this point: 
+
 GlobalLexicalEnvironment ≈ {
 	EnvironmentRecord: {
 		ageMessage: undefined -> He might the eldest son of sarah,
@@ -136,6 +139,8 @@ GlobalLexicalEnvironment ≈ {
 	},
 	OuterEnvironmentReference: null
 }
+
+if...else statements finishes:
 
 IfBlockLexicalEnvironment ≈ {
 	EnvironmentRecord: {},
@@ -150,5 +155,8 @@ ElseBlockLexicalEnvironment ≈ {
 	OuterEnvironmentReference: GlobalLexicalEnvironment
 }
 
-Garbage Collection Eligibility: Yes
+Garbage Collection Eligibility: 
+	IfBlockLexicalEnvironment: Yes
+	ElseIfBlockLexicalEnvironment: Yes
+	ElseBlockLexicalEnvironment: Yes
 */
