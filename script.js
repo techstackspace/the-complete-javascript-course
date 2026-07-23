@@ -86,6 +86,10 @@ console.log(showMessage("Thursday"));
 
 /* 
 After the call to showMessage:
+
+"The Function Lexical Environment becomes unreachable
+unless something still references it (such as a closure)."
+
 - The function call is popped off the call stack
 - Garbage Collection Eligibility:
 	GlobalLexicalEnvironment: No,
@@ -163,3 +167,89 @@ Garbage Collection Eligibility:
 	ElseIfBlockLexicalEnvironment: Yes
 	ElseBlockLexicalEnvironment: Yes
 */
+
+function getAgeMessage() {
+	let ageMessage;
+	const myAge = 34;
+
+	if (myAge < 18) {
+		ageMessage = "I am a teenager";
+	} else if (myAge > 18 && myAge <= 30) {
+		ageMessage = "He might be his elder brother";
+	} else {
+		ageMessage = "He might the eldest son of sarah";
+	}
+	// console.log(this);
+	// this === globalThis (window)
+
+	return ageMessage;
+}
+
+/* 
+When getAgeMessage is defined:
+
+GlobalLexicalEnvironment (creation-time) ≈ {
+	EnvironmentRecord: {
+		getAgeMessage: <function>
+	},
+	OuterEnvironmentReference: null
+}
+
+getAgeMessage ≈ {
+	[[Environment]]: GlobalLexicalEnvironment,
+}
+getAgeMessage.[[Environment]] -> GlobalLexicalEnvironment
+*/
+
+console.dir(getAgeMessage);
+
+/* 
+During a call to getAgeMessage():
+
+- The function call is pushed onto the call stack
+- A new lexical environment is created for for this call
+
+FunctionExecutionContext (call-time) ≈ {
+	ThisBinding: this,
+	FunctionLexicalEnvironment: {
+		EnvironmentRecord: {
+			ageMessage: "He might the eldest son of sarah",
+			myAge: 34
+		},
+		OuterEnvironmentReference: GlobalLexicalEnvironment,
+	}
+}
+*/
+console.log(getAgeMessage());
+
+/* 
+After the call to getAgeMessage:
+
+"The Function Lexical Environment becomes unreachable
+unless something still references it (such as a closure)."
+
+- The function call is popped off the call stack
+- Garbage Collection Eligibility:
+	GlobalLexicalEnvironment: No,
+	FunctionLexicalEnvironment: Yes
+*/
+
+const _globalThis = function () {
+	const _getThisBinding = () => {
+		console.log(this.name);
+	};
+
+	_getThisBinding();
+};
+const person = { name: "Osagie" };
+
+_globalThis.call(person);
+
+const user = {
+	name: "Jerry",
+	age: 23,
+	greet() {
+		return `Hello ${this.name}`;
+	},
+};
+console.log(user.greet());
