@@ -186,7 +186,7 @@ function getAgeMessage() {
 }
 
 /* 
-When getAgeMessage is defined:
+When getAgeMessage is created:
 
 GlobalLexicalEnvironment (creation-time) ≈ {
 	EnvironmentRecord: {
