@@ -210,7 +210,7 @@ During a call to getAgeMessage():
 - A new lexical environment is created for for this call
 
 FunctionExecutionContext (call-time) ≈ {
-	ThisBinding: this,
+	ThisBinding: globalThis -> this,
 	FunctionLexicalEnvironment: {
 		EnvironmentRecord: {
 			ageMessage: "He might the eldest son of sarah",
