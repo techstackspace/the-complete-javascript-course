@@ -210,7 +210,7 @@ During a call to getAgeMessage():
 - A new lexical environment is created for for this call
 
 FunctionExecutionContext (call-time) ≈ {
-	ThisBinding: globalThis -> this,
+	ThisBinding: globalThis,
 	FunctionLexicalEnvironment: {
 		EnvironmentRecord: {
 			ageMessage: "He might the eldest son of sarah",
@@ -243,7 +243,54 @@ const _globalThis = function () {
 };
 const person = { name: "Osagie" };
 
+/* 
+When _globalThis is created:
+
+GlobalLexicalEnvironment (creation-time) ≈ {
+	EnvironmentRecord: {
+		_globalThis: <function>
+	},
+	OuterEnvironmentReference: null
+}
+
+_globalThis ≈ {
+	[[Environment]]: GlobalLexicalEnvironment,
+}
+_globalThis.[[Environment]] -> GlobalLexicalEnvironment
+*/
+
+console.dir(_globalThis);
+
+/* 
+During a call to _globalThis():
+
+- The function call is pushed onto the call stack
+- A new lexical environment is created for for this call
+
+FunctionExecutionContext (call-time) ≈ {
+	ThisBinding: person,
+	FunctionLexicalEnvironment: {
+		EnvironmentRecord: {
+			ageMessage: "He might the eldest son of sarah",
+			myAge: 34
+		},
+		OuterEnvironmentReference: GlobalLexicalEnvironment,
+	}
+}
+*/
 _globalThis.call(person);
+
+/* 
+After the call to _globalThis:
+
+"The Function Lexical Environment becomes unreachable
+unless something still references it (such as a closure)."
+
+- The function call is popped off the call stack
+- Garbage Collection Eligibility:
+	GlobalLexicalEnvironment: No,
+	FunctionLexicalEnvironment: Yes
+*/
 
 const user = {
 	name: "Jerry",
