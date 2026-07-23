@@ -271,8 +271,7 @@ FunctionExecutionContext (call-time) ≈ {
 	ThisBinding: person,
 	FunctionLexicalEnvironment: {
 		EnvironmentRecord: {
-			ageMessage: "He might the eldest son of sarah",
-			myAge: 34
+			_getThisBinding: <function>,
 		},
 		OuterEnvironmentReference: GlobalLexicalEnvironment,
 	}
