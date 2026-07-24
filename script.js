@@ -87,13 +87,13 @@ console.log(showMessage("Thursday"));
 /* 
 After the call to showMessage:
 
-"The Function Lexical Environment becomes unreachable
-unless something still references it (such as a closure)."
-
 - The function call is popped off the call stack
 - Garbage Collection Eligibility:
 	GlobalLexicalEnvironment: No,
 	FunctionLexicalEnvironment: Yes
+
+"The Function Lexical Environment becomes unreachable
+unless something still references it (such as a closure)."
 */
 
 const username = "Osagie";
@@ -225,13 +225,13 @@ console.log(getAgeMessage());
 /* 
 After the call to getAgeMessage:
 
-"The Function Lexical Environment becomes unreachable
-unless something still references it (such as a closure)."
-
-- The function call is popped off the call stack
+- The function call (Function Lexical Environment) is popped off the call stack
 - Garbage Collection Eligibility:
 	GlobalLexicalEnvironment: No,
 	FunctionLexicalEnvironment: Yes
+
+"The Function Lexical Environment becomes unreachable
+unless something still references it (such as a closure)."
 */
 
 const _globalThis = function () {
@@ -282,13 +282,13 @@ _globalThis.call(person);
 /* 
 After the call to _globalThis:
 
-"The Function Lexical Environment becomes unreachable
-unless something still references it (such as a closure)."
-
-- The function call is popped off the call stack
+- The function call (Function Lexical Environment) is popped off the call stack
 - Garbage Collection Eligibility:
 	GlobalLexicalEnvironment: No,
 	FunctionLexicalEnvironment: Yes
+
+"The Function Lexical Environment becomes unreachable
+unless something still references it (such as a closure)."
 */
 
 const user = {
