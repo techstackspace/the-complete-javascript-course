@@ -47,15 +47,24 @@ GlobalExecutionContext ≈ {
 	VariableEnvironment: GlobalLexicalEnvironment,
 }
 
+GlobalObject (window/global) ≈ {
+	globalThis: window,
+	console: ...,
+	Math: ...,
+	document: ...,
+	JSON: ...,
+	Date: ...,
+	Array: ...,
+	Object: ...,
+	Promise: ...,
+	setTimeout: ...,
+	...
+}
+
 GlobalExecutionContext (creation-phase) ≈ {
 	ThisBinding: globalThis,
 	LexicalEnvironment: {
-		ObjectEnvironment: {
-			globalThis: window,
-			console: ...,
-			Math: ...,
-			document: ...,
-		},
+		ObjectEnvironment: GlobalObject,
 		DeclarativeEnvironment: {
 			personName: <uninitialized>, // TDZ
 			showMessage: <uninitialized>,  // TDZ
@@ -68,18 +77,13 @@ GlobalExecutionContext (creation-phase) ≈ {
 			user: <uninitialized>,  // TDZ
 		},
 		OuterEnvironmentReference: null
-	}
+	},
+	VariableEnvironment: same as LexicalEnvironment
 }
-
+	
 GlobalExecutionContext (execution-phase) ≈ {
 	ThisBinding: globalThis,
-	LexicalEnvironment: {
-		ObjectEnvironment: {
-			globalThis: window,
-			console: ...,
-			Math: ...,
-			document: ...,
-		},
+	LexicalEnvironment: GlobalObject,
 		DeclarativeEnvironment: {
 			personName: "Bob",
 			showMessage: <function>, 
@@ -92,14 +96,16 @@ GlobalExecutionContext (execution-phase) ≈ {
 			user: { name: "Jerry", age: 23, greet: <function> }, 
 		},
 		OuterEnvironmentReference: null
-	}
+	},
+	VariableEnvironment: same as LexicalEnvironment
 }
 */
 
 /* 
 In each function call:
+Replaced FunctionLexicalEnvironment with LexicalEnvironment in each FunctionExecutionContext
 
-FunctionLexicalEnvironment ≈ {
+FunctionLexicalEnvironment (New LexicalEnvironment) ≈ {
 	EnvironmentRecord: { ... },
 	OuterEnvironmentReference: ...
 }
@@ -124,7 +130,7 @@ showMessage ≈ {
 }
 showMessage.[[Environment]] -> GlobalLexicalEnvironment
 */
-
+// console.log(Math);
 console.dir(showMessage);
 
 /* 
@@ -141,7 +147,8 @@ FunctionExecutionContext ≈ {
 			personName: "Henry"
 		},
 		OuterEnvironmentReference: GlobalLexicalEnvironment,
-	}
+	},
+	VariableEnvironment: same as LexicalEnvironment
 }
 
 ┌──────────────────────────────┐
@@ -185,7 +192,7 @@ IfBlockLexicalEnvironment ≈ {
 If block finishes:
 
 Garbage Collection Eligibility:
-	IfBlockLexicalEnvironment: Eligibility
+	IfBlockLexicalEnvironment: Eligible
 */
 
 let ageMessage;
@@ -222,9 +229,9 @@ ElseBlockLexicalEnvironment ≈ {
 The if...else statement finishes:
 
 Garbage Collection Eligibility: 
-	IfBlockLexicalEnvironment: Eligibility
-	ElseIfBlockLexicalEnvironment: Eligibility
-	ElseBlockLexicalEnvironment: Eligibility
+	IfBlockLexicalEnvironment: Eligible
+	ElseIfBlockLexicalEnvironment: Eligible
+	ElseBlockLexicalEnvironment: Eligible
 */
 // getAgeMessage()
 function getAgeMessage() {
@@ -267,6 +274,7 @@ During a call to getAgeMessage():
 └──────────────────────────────┘
 - A new lexical environment is created for this call
 
+- VariableEnvironment ≈ LexicalEnvironment
 FunctionExecutionContext ≈ {
 	ThisBinding: globalThis,
 	LexicalEnvironment: {
@@ -275,7 +283,8 @@ FunctionExecutionContext ≈ {
 			myAge: 34
 		},
 		OuterEnvironmentReference: GlobalLexicalEnvironment,
-	}
+	},
+	VariableEnvironment: same as LexicalEnvironment
 }
 */
 console.log(getAgeMessage());
@@ -333,6 +342,7 @@ During a call to _globalThis():
 │ Global Execution Context     │
 └──────────────────────────────┘
 
+- VariableEnvironment ≈ LexicalEnvironment
 FunctionExecutionContext ≈ {
 	ThisBinding: person,
 	LexicalEnvironment: {
@@ -340,7 +350,8 @@ FunctionExecutionContext ≈ {
 			_getThisBinding: <function>,
 		},
 		OuterEnvironmentReference: GlobalLexicalEnvironment,
-	}
+	},
+	VariableEnvironment: same as LexicalEnvironment
 }
  
 - _getThisBinding() pushed onto the call stack
@@ -352,6 +363,7 @@ FunctionExecutionContext ≈ {
 │ Global Execution Context     │
 └──────────────────────────────┘
 
+- VariableEnvironment ≈ LexicalEnvironment
 FunctionExecutionContext (_getThisBinding) ≈ {
     // No own ThisBinding (arrow function)
 	LexicalEnvironment: {
@@ -359,7 +371,8 @@ FunctionExecutionContext (_getThisBinding) ≈ {
 
 		OuterEnvironmentReference:
 			_globalThisLexicalEnvironment,
-	}
+	},
+	VariableEnvironment: same as LexicalEnvironment
 }
 - A new lexical environment is created for for this call
 */
@@ -409,25 +422,7 @@ After execution finishes, the call stack is empty
 
 Execution has finished.
 
-- Global Execution Context is removed.
+- Global Execution Context is removed (popped off).
 - The Call Stack becomes empty.
 - Any unreachable lexical environments become eligible for garbage collection.
- */
-
-const arrowFn = () => {
-	console.log(this);
-	// this === globalThis
-};
-arrowFn();
-
-const fnExp = function () {
-	const arrowFn = () => {
-		console.log(this.name, this.age);
-		// this === globalThis
-	};
-	arrowFn();
-};
-
-const personInfo = { name: "Michael", age: 24 };
-
-fnExp.call(personInfo);
+*/
