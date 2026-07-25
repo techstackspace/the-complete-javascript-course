@@ -101,6 +101,123 @@ GlobalExecutionContext (execution-phase) ≈ {
 }
 */
 
+function fnDeclaration() {
+	/*
+	Plain function call
+
+	• Function declarations create their own `this` binding.
+	• Without strict mode, `this` defaults to globalThis.
+	• With strict mode, `this` is undefined.
+	*/
+	console.log(this, "fnDeclaration");
+}
+
+const fnExp = function () {
+	/*
+	Plain function call
+
+	• Function expressions create their own `this` binding.
+	• Without strict mode, `this` defaults to globalThis.
+	• With strict mode, `this` is undefined.
+	*/
+	console.log(this, "fnExp");
+};
+
+// Defined in the Global Execution Context
+const arrowFn = () => {
+	/*
+	Arrow function
+
+	• Arrow functions do not create their own `this` binding.
+	• They lexically inherit `this` from their surrounding scope.
+	• Here, the surrounding scope is the Global Execution Context,
+	  so `this === globalThis`.
+	*/
+	console.log(this, "arrowFn");
+};
+
+function fnDeclaration1() {
+	/*
+	Function declaration with .call()
+
+	• Creates its own `this` binding.
+	• .call(personInfo) explicitly sets `this` to personInfo.
+	*/
+	console.log(this, "fnDeclaration1");
+	console.log(this.name, this.age);
+}
+
+const fnExp1 = function () {
+	/*
+	Function expression with .call()
+
+	• Creates its own `this` binding.
+	• .call(personInfo) explicitly sets `this` to personInfo.
+	*/
+	console.log(this, "fnExp1");
+	console.log(this.name, this.age);
+};
+
+const arrowFn1 = () => {
+	/*
+	Arrow function with .call()
+
+	• Arrow functions ignore .call(), .apply(), and .bind().
+	• They always inherit `this` from their surrounding scope.
+	• Since this arrow function was defined in the Global
+	  Execution Context, `this === globalThis`.
+	*/
+	console.log(this, "arrowFn1");
+};
+
+const fnExp2 = function () {
+	/*
+	Function expression
+
+	• Creates its own `this` binding.
+	• .call(personInfo1) sets `this` to personInfo1.
+	*/
+
+	const arrowFn2 = () => {
+		/*
+		Nested arrow function
+
+		• Does not create its own `this` binding.
+		• Lexically inherits `this` from fnExp2.
+		• Since fnExp2's `this` is personInfo1,
+		  arrowFn2's `this` is also personInfo1.
+		*/
+		console.log(this, "arrowFn2");
+	};
+
+	arrowFn2();
+};
+const personInfo = { name: "Jerry", age: 34 };
+fnExp();
+fnDeclaration();
+arrowFn();
+arrowFn1();
+
+fnExp1.call(personInfo);
+fnDeclaration1.call(personInfo);
+fnExp2.call(personInfo);
+
+/*
+Rules for `this`
+
+1. Function declarations and function expressions create their own
+   `this` binding.
+
+2. Arrow functions never create their own `this` binding.
+   They lexically inherit `this` from the surrounding execution context.
+
+3. `call()`, `apply()`, and `bind()` can change `this` only for
+   non-arrow functions.
+
+4. `call()`, `apply()`, and `bind()` have no effect on an arrow
+   function's `this`.
+*/
+
 /* 
 In each function call:
 Replaced FunctionLexicalEnvironment with LexicalEnvironment in each FunctionExecutionContext
