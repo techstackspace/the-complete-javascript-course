@@ -41,6 +41,15 @@ Lexical Environment rules
 */
 
 /* 
+
+Call Stack
+
+┌──────────────────────────────┐
+│ Global Execution Context     │
+└──────────────────────────────┘
+
+The Global Execution Context is created and pushed onto the call stack before the creation phase begins.
+
 GlobalExecutionContext ≈ {
 	ThisBinding: globalThis,
 	LexicalEnvironment: GlobalLexicalEnvironment,
@@ -102,8 +111,18 @@ GlobalExecutionContext (execution-phase) ≈ {
 */
 
 /* 
-In each function call:
+In each function call (FunctionExecutionContext):
 Replaced FunctionLexicalEnvironment with LexicalEnvironment in each FunctionExecutionContext
+
+Call Stack
+
+┌──────────────────────────────┐
+│ Function Execution Context   │
+├──────────────────────────────┤
+│ Global Execution Context     │
+└──────────────────────────────┘
+
+The diagram illustrates what happens when a function is called.
 
 FunctionLexicalEnvironment (New LexicalEnvironment) ≈ {
 	EnvironmentRecord: { ... },
@@ -162,7 +181,7 @@ console.log(showMessage("Thursday"));
 /* 
 After the call to showMessage:
 
-- The function call is popped off the call stack
+- The function call (FunctionExecutionContext) is popped off the call stack
 
 ┌──────────────────────────────┐
 │ Global Execution Context     │
