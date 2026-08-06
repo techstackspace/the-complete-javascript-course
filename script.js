@@ -1,5 +1,5 @@
-// Block Scope
-/* 
+// Blocks
+/*
 1. standalone block
 2. if block
 3. else block
@@ -13,10 +13,9 @@
 11. catch block
 12. function body block
 13. arrow function block body
-14. class body block
-15. static initialization block
-16. module scope block
+14. static initialization block
 */
+
 console.log("----------Block Scope----------");
 // {...}
 const greet = "Hello World"; // global variable
