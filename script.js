@@ -1,21 +1,28 @@
-// Block Scope
-/* 
+// Blocks
+/*
 1. standalone block
 2. if block
 3. else block
 4. else if block
-5. switch block
-6. for block
-7. while block
-8. do...while block
-9. function body block
-10. arrow function block body
-11. try block
-12. finally block
-13. catch block
-14. class body block
-15. static initialization block
-16. module scope block
+5. for block
+6. while block
+7. do...while block
+8. switch block
+9. try block
+10. finally block
+11. catch block
+12. function body block
+13. arrow function block body
+14. static initialization block
+*/
+
+// Scopes
+/* 
+1. Global Scope
+2. Block Scope
+3. Module Scope
+4. Function Scope
+5. Class Scope
 */
 
 console.log("----------standalone block----------");
