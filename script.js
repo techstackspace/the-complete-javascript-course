@@ -1,26 +1,57 @@
-// Block Scope
-/* 
+// Blocks
+/*
 1. standalone block
 2. if block
 3. else block
 4. else if block
-5. switch block
-6. for block
-7. while block
-8. do...while block
-9. function body block
-10. arrow function block body
-11. try block
-12. finally block
-13. catch block
-14. class body block
-15. static initialization block
-16. module scope block
+5. for block
+6. while block
+7. do...while block
+8. switch block
+9. try block
+10. finally block
+11. catch block
+12. function body block
+13. arrow function block body
+14. static initialization block
 */
 
-console.log("----------standalone block----------");
+// Scopes
+/* 
+1. Global Scope
+2. Block Scope
+3. Module Scope
+4. Function Scope
+*/
+const x = 5;
+console.log(x);
+const y = 10;
+function getPersonAge() {
+	// y = 10;
+	const z = 20;
+	console.log(y); // 10
+	console.log(z); // 20
+}
+getPersonAge();
+
+const a = 10;
+
+function outer() {
+	const b = 20;
+
+	function inner() {
+		const c = 30;
+
+		console.log(a); // 10 -> global scope
+		console.log(b); // 20 -> outer scope
+		console.log(c); // 30 -> own/current scope
+	}
+	inner();
+}
+outer();
+
+console.log("----------Block Scope----------");
 // {...}
-// Variable Shadowing
 const greet = "Hello World"; // global variable
 {
 	const greet = "Good morning"; // local variable
@@ -32,8 +63,7 @@ console.log(greet);
 	console.log(greet);
 }
 
-console.log("----------if block----------");
-// Scope Chaining
+console.log("----------if statement----------");
 const ageJohn = "34";
 const isElder = ageJohn > 20;
 let elderBrotherMessage;
@@ -52,7 +82,7 @@ if (ageSarah > 18) {
 	console.log("Sarah has a driving licence");
 }
 
-console.log("----------else block----------");
+console.log("----------else statement----------");
 
 let message;
 if (ageSarah > 18) {
@@ -63,7 +93,7 @@ if (ageSarah > 18) {
 
 console.log(message);
 
-console.log("----------else if block----------");
+console.log("----------else if statement----------");
 
 const workHour = 15;
 let workStatusMessage;
@@ -101,7 +131,7 @@ if (currentYear < 2050) {
 }
 console.log(eraMessage);
 
-console.log("----------switch block----------");
+console.log("----------switch statement----------");
 const grade = "B";
 let gradeMessage;
 
@@ -120,7 +150,7 @@ switch (grade) {
 }
 console.log(gradeMessage);
 
-console.log("----------Nested if blocks----------");
+console.log("----------Nested if statements----------");
 const personAge = 18;
 
 if (personAge >= 18) {
