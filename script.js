@@ -18,7 +18,7 @@
 
 console.log("----------Block Scope----------");
 // {...}
-const greet = "Hello World"; // global variable
+const greet = "Hello World";
 {
 	const greet = "Good morning"; // local variable
 	console.log(greet);
