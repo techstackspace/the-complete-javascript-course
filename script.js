@@ -22,6 +22,7 @@
 2. Block Scope
 3. Module Scope
 4. Function Scope
+5. Class Scope
 */
 const x = 5;
 console.log(x);
