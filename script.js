@@ -113,9 +113,9 @@ GlobalExecutionContext (creation phase) ≈ {
 	VariableEnvironment (Global Variable Environment): {
 		EnvironmentRecord: {
 		    // var declaration / function declarations
-			fn: <function object> (0x1AF11B2),
 			myName: undefined,
 			name: undefined,
+			fn: <function object> (0x1AF11B2),
 		},
 		OuterEnvironmentReference: null,
 	}
@@ -159,9 +159,9 @@ GlobalExecutionContext (execution phase) ≈ {
 	VariableEnvironment (Global Variable Environment): {
 		EnvironmentRecord: {
 		    // var declaration / function declarations
-			fn: <function object> (0x1AF11B2),
 			myName: "Jerry",
 			name: "John",
+			fn: <function object> (0x1AF11B2),
 		},
 		OuterEnvironmentReference: null,
 	}
