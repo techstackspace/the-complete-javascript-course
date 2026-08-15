@@ -114,6 +114,7 @@ GlobalExecutionContext (creation phase) ≈ {
 		    // var declaration / function declarations
 			fn: <function object> (0x1AF11B2),
 			myName: undefined,
+			name: undefined,
 		},
 		OuterEnvironmentReference: null,
 	}
