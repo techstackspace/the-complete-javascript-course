@@ -62,10 +62,6 @@ Lexical Environment rules
    in a ReferenceError.
 */
 
-function fn() {}
-console.dir(fn); // Object
-console.log(typeof fn); // function (Object)
-
 // console.log(personName); // ReferenceError
 // console.log(showMessage); // ReferenceError
 const personName = "Bob";
@@ -79,7 +75,12 @@ console.log(myName);
 var name = "John";
 console.log(name);
 
+function fn() {}
+console.dir(fn); // Object
+console.log(typeof fn); // function (Object)
+
 /* 
+Creation phase (GEC)
 - The Global Execution Context is created and pushed onto the call stack when JavaScript begins 
 executing the global code.
 
@@ -125,4 +126,49 @@ showMessage ≈ {
 	[[Environment]]: LexicalEnvironment (Global Lexical Environment),
 }
 */
-console.log(window);
+
+/* 
+Execution phase (GEC)
+- All top-level variables are initialized with their values during the execution phase of the 
+Global Execution Context (GEC)
+
+GlobalObject (window/global) ≈ {
+	globalThis: <object>,
+	console: <object>,
+	Math: <object>,
+	JSON: <object>,
+	myName: "Jerry",
+	name: "John",
+	fn: <function object>
+	...
+}
+
+Memory Heap: 
+ 0x1AF11B2: <function object>,
+ 0xA100B01: <arrow function object>
+
+GlobalExecutionContext (execution phase) ≈ {
+	LexicalEnvironment (Global Lexical Environment): {
+		EnvironmentRecord: {
+		    // let / const / class declarations
+			personName: "Bob",
+			showMessage: <arrow function object> (0xA100B01),
+		},
+		OuterEnvironmentReference: null,
+	},
+	VariableEnvironment (Global Variable Environment): {
+		EnvironmentRecord: {
+		    // var declaration / function declarations
+			fn: <function object> (0x1AF11B2),
+			myName: "Jerry",
+			name: "John",
+		},
+		OuterEnvironmentReference: null,
+	}
+}
+
+[[Environment]] = Internal (hidden) environment reference
+showMessage ≈ {
+	[[Environment]]: LexicalEnvironment (Global Lexical Environment),
+}
+*/
