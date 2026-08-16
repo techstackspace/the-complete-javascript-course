@@ -135,7 +135,7 @@ showMessage ≈ {
 	[[ECMAScriptCode]]: (day) => {
 		return `Hello ${personName}, today is ${day}`;
 	},
-	Parameter: ["day"]
+	Parameters: ["day"]
 }
 
 getAgeMessage ≈ {
@@ -144,7 +144,7 @@ getAgeMessage ≈ {
 		const year = 10;
 		return `Today, ${day}, ${personName} is ${year}`;
 	},
-	Parameter: ["day"]
+	Parameters: ["day"]
 }
 */
 
@@ -194,7 +194,7 @@ showMessage ≈ {
 	[[ECMAScriptCode]]: (day) => {
 		return `Hello ${personName}, today is ${day}`;
 	},
-	Parameter: ["day"]
+	Parameters: ["day"]
 }
 
 getAgeMessage ≈ {
@@ -203,7 +203,7 @@ getAgeMessage ≈ {
 		const year = 10;
 		return `Today, ${day}, ${personName} is ${year}`;
 	},
-	Parameter: ["day"]
+	Parameters: ["day"]
 }
 */
 
@@ -271,7 +271,7 @@ Call Stack:
 FunctionExecutionContext (execution phase) ≈ {
 	LexicalEnvironment (Function Lexical Environment): {
 		EnvironmentRecord: {
-		    // parameter / let / const / class declarations
+		    // parameters / let / const / class declarations
 			day: "Monday",
 			year: 10,
 		},
