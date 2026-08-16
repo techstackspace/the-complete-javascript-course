@@ -259,6 +259,25 @@ Execution phase (FEC)
 getAgeMessage.[[Environment]]: -> GlobalLexicalEnvironment
 During the function, getAgeMessage() call:
 - A new Execution Context, Function Execution Context (FEC) is created
+
+Setup / creation of the FEC:
+FunctionExecutionContext (setup) ≈ {
+    LexicalEnvironment: {
+        EnvironmentRecord: {
+            day: "Monday",
+            year: <uninitialized> // TDZ
+        },
+        OuterEnvironmentReference: GlobalLexicalEnvironment
+    },
+
+    VariableEnvironment: {
+        EnvironmentRecord: {
+            // var / function declarations
+        },
+        OuterEnvironmentReference: GlobalLexicalEnvironment
+    }
+}
+
 - FEC is pushed onto the call stack
 
 Call Stack:
