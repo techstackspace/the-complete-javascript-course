@@ -137,6 +137,15 @@ showMessage ≈ {
 	},
 	Parameter: ["day"]
 }
+
+getAgeMessage ≈ {
+	[[Environment]]: LexicalEnvironment (Global Lexical Environment),
+	[[ECMAScriptCode]]: (day) => {
+		const year = 10;
+		return `Today, ${day}, ${personName} is ${year}`;
+	},
+	Parameter: ["day"]
+}
 */
 
 /* 
