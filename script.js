@@ -75,14 +75,22 @@ console.log(myName);
 var name = "John";
 console.log(name);
 
-function fn() {}
-console.dir(fn); // Object
-console.log(typeof fn); // function (Object)
+function getAgeMessage(day) {
+	const year = 10;
+	return `Today, ${day}, ${personName} is ${year}`;
+}
+console.dir(getAgeMessage); // Object
+console.log(typeof getAgeMessage); // function (Object)
 
 /* 
 Creation phase (GEC)
 - The Global Execution Context is created and pushed onto the call stack when JavaScript begins 
 executing the global code.
+
+Call Stack:
+┌──────────────────────────────┐
+│ Global Execution Context     │
+└──────────────────────────────┘
 
 GlobalObject (window/global) ≈ {
 	globalThis: <object>,
@@ -91,7 +99,7 @@ GlobalObject (window/global) ≈ {
 	JSON: <object>,
 	myName: undefined,
 	name: undefined,
-	fn: <function object>
+	getAgeMessage: <function object>
 	...
 }
 
@@ -112,10 +120,10 @@ GlobalExecutionContext (creation phase) ≈ {
 	},
 	VariableEnvironment (Global Variable Environment): {
 		EnvironmentRecord: {
-		    // var declaration / function declarations
+		    // var / function declarations
 			myName: undefined,
 			name: undefined,
-			fn: <function object> (0x1AF11B2),
+			getAgeMessage: <function object> (0x1AF11B2),
 		},
 		OuterEnvironmentReference: null,
 	}
@@ -124,6 +132,10 @@ GlobalExecutionContext (creation phase) ≈ {
 [[Environment]] = Internal (hidden) environment reference
 showMessage ≈ {
 	[[Environment]]: LexicalEnvironment (Global Lexical Environment),
+	[[ECMAScriptCode]]: (day) => {
+		return `Hello ${personName}, today is ${day}`;
+	},
+	Parameter: ["day"]
 }
 */
 
@@ -139,7 +151,7 @@ GlobalObject (window/global) ≈ {
 	JSON: <object>,
 	myName: "Jerry",
 	name: "John",
-	fn: <function object>
+	getAgeMessage: <function object>
 	...
 }
 
@@ -158,10 +170,10 @@ GlobalExecutionContext (execution phase) ≈ {
 	},
 	VariableEnvironment (Global Variable Environment): {
 		EnvironmentRecord: {
-		    // var declaration / function declarations
+		    // var / function declarations
 			myName: "Jerry",
 			name: "John",
-			fn: <function object> (0x1AF11B2),
+			getAgeMessage: <function object> (0x1AF11B2),
 		},
 		OuterEnvironmentReference: null,
 	}
@@ -171,4 +183,100 @@ GlobalExecutionContext (execution phase) ≈ {
 showMessage ≈ {
 	[[Environment]]: LexicalEnvironment (Global Lexical Environment),
 }
+*/
+
+console.log(showMessage("Thursday"));
+/* 
+Execution phase (FEC)
+showMessage.[[Environment]]: -> GlobalLexicalEnvironment
+During the function, showMessage() call:
+- A new Execution Context, Function Execution Context (FEC) is created
+- FEC is pushed onto the call stack
+
+Call Stack:
+┌──────────────────────────────┐
+│ showMessage("Thursday")      │
+├──────────────────────────────┤
+│ Global Execution Context     │
+└──────────────────────────────┘
+
+FunctionExecutionContext (execution phase) ≈ {
+	LexicalEnvironment (Function Lexical Environment): {
+		EnvironmentRecord: {
+		    // parameters / let / const / class declarations
+			day: "Thursday"
+		},
+		OuterEnvironmentReference: GlobalLexicalEnvironment,
+	},
+	VariableEnvironment (Function Variable Environment): {
+		EnvironmentRecord: {
+		    // var declaration / function declarations
+		},
+		OuterEnvironmentReference: GlobalLexicalEnvironment,
+	}
+}
+
+After the call to showMessage():
+- FEC is popped off from the call stack
+
+Call Stack:
+┌──────────────────────────────┐
+│ Global Execution Context     │
+└──────────────────────────────┘
+
+*/
+
+console.log(getAgeMessage("Monday"));
+/* 
+function getAgeMessage(day) {
+	const year = 10;
+	return `Today, ${day}, ${personName} is ${year}`;
+}
+
+Execution phase (FEC)
+getAgeMessage.[[Environment]]: -> GlobalLexicalEnvironment
+During the function, getAgeMessage() call:
+- A new Execution Context, Function Execution Context (FEC) is created
+- FEC is pushed onto the call stack
+
+Call Stack:
+┌──────────────────────────────┐
+│ getAgeMessage("Monday")      │
+├──────────────────────────────┤
+│ Global Execution Context     │
+└──────────────────────────────┘
+
+FunctionExecutionContext (execution phase) ≈ {
+	LexicalEnvironment (Function Lexical Environment): {
+		EnvironmentRecord: {
+		    // parameter / let / const / class declarations
+			day: "Monday",
+			year: 10,
+		},
+		OuterEnvironmentReference: GlobalLexicalEnvironment,
+	},
+	VariableEnvironment (Function Variable Environment): {
+		EnvironmentRecord: {
+		    // var / function declarations (no binding)
+		},
+		OuterEnvironmentReference: GlobalLexicalEnvironment,
+	}
+}
+
+After the call to getAgeMessage():
+- FEC is popped off from the call stack
+
+Call Stack:
+┌──────────────────────────────┐
+│ Global Execution Context     │
+└──────────────────────────────┘
+*/
+
+/* 
+After execution finishes, the call stack is empty
+
+Call Stack:
+┌──────────────────────────────┐
+│            empty             │
+└──────────────────────────────┘
 */
