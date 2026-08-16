@@ -191,6 +191,19 @@ GlobalExecutionContext (execution phase) ≈ {
 [[Environment]] = Internal (hidden) environment reference
 showMessage ≈ {
 	[[Environment]]: LexicalEnvironment (Global Lexical Environment),
+	[[ECMAScriptCode]]: (day) => {
+		return `Hello ${personName}, today is ${day}`;
+	},
+	Parameter: ["day"]
+}
+
+getAgeMessage ≈ {
+	[[Environment]]: LexicalEnvironment (Global Lexical Environment),
+	[[ECMAScriptCode]]: (day) => {
+		const year = 10;
+		return `Today, ${day}, ${personName} is ${year}`;
+	},
+	Parameter: ["day"]
 }
 */
 
