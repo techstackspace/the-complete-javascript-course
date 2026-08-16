@@ -232,7 +232,7 @@ FunctionExecutionContext (execution phase) ≈ {
 	},
 	VariableEnvironment (Function Variable Environment): {
 		EnvironmentRecord: {
-		    // var declaration / function declarations
+		    // var / function declarations (no binding)
 		},
 		OuterEnvironmentReference: GlobalLexicalEnvironment,
 	}
