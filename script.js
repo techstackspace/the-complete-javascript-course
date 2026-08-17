@@ -250,11 +250,6 @@ Call Stack:
 
 console.log(getAgeMessage("Monday"));
 /* 
-function getAgeMessage(day) {
-	const year = 10;
-	return `Today, ${day}, ${personName} is ${year}`;
-}
-
 Execution phase (FEC)
 getAgeMessage.[[Environment]]: -> GlobalLexicalEnvironment
 During the function, getAgeMessage() call:
