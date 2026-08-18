@@ -64,6 +64,18 @@ Lexical Environment rules
 
 // console.log(personName); // ReferenceError
 // console.log(showMessage); // ReferenceError
+
+/* 
+- Every function Execution Context for an ordinary function has a this binding
+- Arrow function do not have their own this binding
+*/
+
+// Browser runtime
+console.log(globalThis === window); // true
+
+// Node / Bun / Nub runtime (Server-side)
+// console.log(globalThis === global); // ReferenceError in the Browser
+
 const personName = "Bob";
 const showMessage = (day) => {
 	return `Hello ${personName}, today is ${day}`;
@@ -110,6 +122,7 @@ Memory Heap:
  0x1AF11B2: <function object>
 
 GlobalExecutionContext (creation phase) ≈ {
+    ThisBinding: globalThis,
 	LexicalEnvironment (Global Lexical Environment): {
 		EnvironmentRecord: {
 		    // let / const / class declarations
@@ -169,6 +182,7 @@ Memory Heap:
  0xA100B01: <arrow function object>
 
 GlobalExecutionContext (execution phase) ≈ {
+	ThisBinding: globalThis,
 	LexicalEnvironment (Global Lexical Environment): {
 		EnvironmentRecord: {
 		    // let / const / class declarations
@@ -223,6 +237,7 @@ Call Stack:
 └──────────────────────────────┘
 
 FunctionExecutionContext (execution phase) ≈ {
+	ThisBinding: globalThis,
 	LexicalEnvironment (Function Lexical Environment): {
 		EnvironmentRecord: {
 		    // parameters / let / const / class declarations
@@ -257,6 +272,7 @@ During the function, getAgeMessage() call:
 
 Setup / creation of the FEC:
 FunctionExecutionContext (setup) ≈ {
+	ThisBinding: globalThis,
     LexicalEnvironment: {
         EnvironmentRecord: {
             day: "Monday",
@@ -283,6 +299,7 @@ Call Stack:
 └──────────────────────────────┘
 
 FunctionExecutionContext (execution phase) ≈ {
+	ThisBinding: globalThis,
 	LexicalEnvironment (Function Lexical Environment): {
 		EnvironmentRecord: {
 		    // parameters / let / const / class declarations
@@ -316,3 +333,157 @@ Call Stack:
 │            empty             │
 └──────────────────────────────┘
 */
+
+/* 
+Without Strict Mode
+
+Function declaration and function expression:
+Function declaration and function expression create their own "this" binding
+
+Arrow function:
+Arrow function do not have their own this binding, but uses it surrounding context "this" binding
+
+Ordinary function:
+FEC "this" binding is determined by how the function is invoked
+*/
+
+function declarationFn() {
+	// this binding is from the FEC (declarationFn())
+	console.log(this, "declarationFn"); // this === globalThis
+}
+
+declarationFn();
+
+const expressionFn = function () {
+	// this binding is from the FEC (expressionFn())
+	console.log(this, "expressionFn"); // this === globalThis
+};
+
+expressionFn();
+
+const arrowFn = () => {
+	// this binding is from the GEC (arrowFn())
+	console.log(this, "arrowFn"); // this === globalThis
+};
+
+arrowFn();
+
+/* 
+.call(object):
+.call(object) explicitly supplies the "this" value for that invocation
+*/
+
+function decFn() {
+	// this binding is from the FEC (declarationFn())
+	console.log(this, "decFn"); // this === globalThis
+}
+const sarahInfo = { name: "Sarah", age: 23 };
+decFn.call(sarahInfo);
+
+// decFn();
+
+const expFn = function () {
+	// this binding is from the FEC (expressionFn())
+	console.log(this, "expFn"); // this === globalThis
+};
+const johnInfo = { name: "John", age: 33 };
+expFn.call(johnInfo);
+
+// expFn();
+
+const arrFn = () => {
+	// this binding is from the GEC (arrowFn())
+	console.log(this, "arrFn"); // this === globalThis
+};
+
+const michaelInfo = { name: "Michael", age: 19 };
+arrFn.call(michaelInfo);
+
+// arrFn();
+
+const callWithThis = function () {
+	const getThisBinding = () => {
+		console.log(this); // henryInfo
+	};
+	getThisBinding();
+};
+callWithThis(); // this == globalThis (FEC)
+const henryInfo = { name: "Henry", age: 12 };
+callWithThis.call(henryInfo);
+
+/* 
+expFn():
+FunctionExecutionContext (execution phase) ≈ {
+	ThisBinding: johnInfo,
+	LexicalEnvironment (Function Lexical Environment): {
+		EnvironmentRecord: {
+		    // parameters / let / const / class declarations
+		},
+		OuterEnvironmentReference: GlobalLexicalEnvironment,
+	},
+	VariableEnvironment (Function Variable Environment): {
+		EnvironmentRecord: {
+		    // var / function declarations (no binding)
+		},
+		OuterEnvironmentReference: GlobalLexicalEnvironment,
+	}
+}
+*/
+
+const personInfo = {
+	name: "Osagie",
+	age: 32,
+	greet: function () {
+		return `${this.name} is ${this.age} years old today!`;
+	},
+};
+
+console.log(personInfo.greet()); // Osagie is 32 years old today!
+
+const person = {
+	firstName: "Osagie",
+	age: 32,
+	greet: () => {
+		return `${this.firstName} is ${this.age} years old today!`;
+	},
+};
+
+console.log(person.greet()); // undefined is undefined years old today!
+
+const animal = {
+	breed: "Akita",
+	age: 2,
+	bark() {
+		const nestedFn = () => {
+			return `${this.breed} is ${this.age} years old today!`;
+		};
+		console.log(nestedFn());
+	},
+};
+
+animal.bark(); // Akita is 2 years old today!
+
+/* 
+Normal Browser-script (without strict mode):
+this === globalThis
+*/
+console.log(this);
+
+/* 
+ES Module Script (Bun HTML runtime)
+this === {}
+*/
+
+const invokeWithThis = function () {
+	console.log(this, "Running on Bun"); // this === undefined (ES Module)
+};
+
+invokeWithThis();
+
+const getPersonDetails = () => {
+	this.name = "Osagie";
+	this.sayHi = function () {
+		return `${this.name} is good!`;
+	};
+};
+console.log(getPersonDetails());
