@@ -407,7 +407,7 @@ const callWithThis = function () {
 	};
 	getThisBinding();
 };
-callWithThis(); // this == globalThis (FEC)
+callWithThis();
 const henryInfo = { name: "Henry", age: 12 };
 callWithThis.call(henryInfo);
 
@@ -462,28 +462,3 @@ const animal = {
 };
 
 animal.bark(); // Akita is 2 years old today!
-
-/* 
-Normal Browser-script (without strict mode):
-this === globalThis
-*/
-console.log(this);
-
-/* 
-ES Module Script (Bun HTML runtime)
-this === {}
-*/
-
-const invokeWithThis = function () {
-	console.log(this, "Running on Bun"); // this === undefined (ES Module)
-};
-
-invokeWithThis();
-
-const getPersonDetails = () => {
-	this.name = "Osagie";
-	this.sayHi = function () {
-		return `${this.name} is good!`;
-	};
-};
-console.log(getPersonDetails());
