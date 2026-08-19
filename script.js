@@ -434,6 +434,7 @@ const personInfo = {
 	name: "Osagie",
 	age: 32,
 	greet: function () {
+		// this === personInfo (FEC - greet())
 		return `${this.name} is ${this.age} years old today!`;
 	},
 };
@@ -444,6 +445,8 @@ const person = {
 	firstName: "Osagie",
 	age: 32,
 	greet: () => {
+		// this === globalThis
+		// (FEC lexically inherit this binding from GEC)
 		return `${this.firstName} is ${this.age} years old today!`;
 	},
 };
@@ -454,6 +457,7 @@ const animal = {
 	breed: "Akita",
 	age: 2,
 	bark() {
+		// this === animal (FEC - bark())
 		const nestedFn = () => {
 			return `${this.breed} is ${this.age} years old today!`;
 		};
