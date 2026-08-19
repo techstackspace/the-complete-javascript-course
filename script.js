@@ -446,7 +446,7 @@ const person = {
 	age: 32,
 	greet: () => {
 		// this === globalThis
-		// (FEC lexically inherit this binding from GEC)
+		// (FEC - greet() lexically inherit "this" binding from the GEC)
 		return `${this.firstName} is ${this.age} years old today!`;
 	},
 };
