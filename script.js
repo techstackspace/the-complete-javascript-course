@@ -403,11 +403,11 @@ arrFn.call(michaelInfo);
 
 const callWithThis = function () {
 	const getThisBinding = () => {
-		console.log(this); // henryInfo
+		console.log(this); // this === henryInfo
 	};
 	getThisBinding();
 };
-callWithThis();
+// callWithThis();
 const henryInfo = { name: "Henry", age: 12 };
 callWithThis.call(henryInfo);
 
