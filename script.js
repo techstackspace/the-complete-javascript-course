@@ -324,82 +324,6 @@ Call Stack:
 └──────────────────────────────┘
 */
 
-/* 
-After execution finishes, the call stack is empty
-
-Call Stack:
-┌──────────────────────────────┐
-│            empty             │
-└──────────────────────────────┘
-*/
-
-/* 
-Without Strict Mode
-
-Function declaration and function expression:
-Function declaration and function expression create their own "this" binding
-
-Arrow function:
-Arrow function do not have their own this binding, but uses it surrounding context "this" binding
-
-Ordinary function:
-FEC "this" binding is determined by how the function is invoked
-*/
-
-function declarationFn() {
-	// this binding is from the FEC (declarationFn())
-	console.log(this, "declarationFn"); // this === globalThis
-}
-
-declarationFn();
-
-const expressionFn = function () {
-	// this binding is from the FEC (expressionFn())
-	console.log(this, "expressionFn"); // this === globalThis
-};
-
-expressionFn();
-
-const arrowFn = () => {
-	// this binding is from the GEC (arrowFn())
-	console.log(this, "arrowFn"); // this === globalThis
-};
-
-arrowFn();
-
-/* 
-.call(object):
-.call(object) explicitly supplies the "this" value for that invocation
-*/
-
-function decFn() {
-	// this binding is from the FEC (declarationFn())
-	console.log(this, "decFn"); // this === globalThis
-}
-const sarahInfo = { name: "Sarah", age: 23 };
-decFn.call(sarahInfo);
-
-// decFn();
-
-const expFn = function () {
-	// this binding is from the FEC (expressionFn())
-	console.log(this, "expFn"); // this === globalThis
-};
-const johnInfo = { name: "John", age: 33 };
-expFn.call(johnInfo);
-
-// expFn();
-
-const arrFn = () => {
-	// this binding is from the GEC (arrowFn())
-	console.log(this, "arrFn"); // this === globalThis
-};
-
-const michaelInfo = { name: "Michael", age: 19 };
-arrFn.call(michaelInfo);
-
-// arrFn();
-
 const callWithThis = function () {
 	const getThisBinding = () => {
 		console.log(this); // this === henryInfo
@@ -411,85 +335,180 @@ const henryInfo = { name: "Henry", age: 12 };
 callWithThis.call(henryInfo);
 
 /* 
-expFn():
-FunctionExecutionContext (execution phase) ≈ {
-	ThisBinding: johnInfo,
-	LexicalEnvironment (Function Lexical Environment): {
-		EnvironmentRecord: {
-		    // parameters / let / const / class declarations
-		},
-		OuterEnvironmentReference: GlobalLexicalEnvironment,
-	},
-	VariableEnvironment (Function Variable Environment): {
-		EnvironmentRecord: {
-		    // var / function declarations (no binding)
-		},
-		OuterEnvironmentReference: GlobalLexicalEnvironment,
-	}
+Execution phase (FEC)
+callWithThis.[[Environment]]: -> GlobalLexicalEnvironment
+
+During the function, callWithThis.call(henryInfo):
+- A new Execution Context, Function Execution Context (FEC) is created
+
+Setup / creation of the FEC:
+FunctionExecutionContext (setup) ≈ {
+    ThisBinding: henryInfo (0x2000),
+
+    LexicalEnvironment: {
+        EnvironmentRecord: {
+            // const / let / class declarations
+            getThisBinding: <uninitialized>
+        },
+        OuterEnvironmentReference: GlobalLexicalEnvironment
+    },
+
+    VariableEnvironment: {
+        EnvironmentRecord: {
+            // var / function declarations
+        },
+        OuterEnvironmentReference: GlobalLexicalEnvironment
+    }
 }
+
+- FEC is pushed onto the call stack
+
+Call Stack:
+
+┌──────────────────────────────────┐
+│ callWithThis.call(henryInfo)     │
+│                                  │
+│ Function Execution Context       │
+├──────────────────────────────────┤
+│ Global Execution Context         │
+└──────────────────────────────────┘
+
+
+FunctionExecutionContext (execution phase) ≈ {
+    ThisBinding: henryInfo (0x2000),
+
+    LexicalEnvironment (Function Lexical Environment): {
+        EnvironmentRecord: {
+            // parameters / let / const / class declarations
+
+            getThisBinding:
+                <arrow function object> (0x3000)
+        },
+
+        OuterEnvironmentReference: GlobalLexicalEnvironment
+    },
+
+    VariableEnvironment (Function Variable Environment): {
+        EnvironmentRecord: {
+            // var / function declarations (no binding)
+        },
+
+        OuterEnvironmentReference: GlobalLexicalEnvironment
+    }
+}
+
+
+getThisBinding ≈ {
+    [[Environment]]:
+        FunctionLexicalEnvironment,
+
+    [[ECMAScriptCode]]:
+        () => {
+            console.log(this);
+        }
+}
+
+
+- getThisBinding() is now called.
+- A new Execution Context is created for the arrow function.
+- The arrow function does NOT receive its own ThisBinding.
+- Its "this" is lexically inherited from the surrounding
+  callWithThis Function Execution Context.
+
+ArrowFunctionExecutionContext ≈ {
+    ThisBinding:
+        <no own ThisBinding>,
+
+    LexicalEnvironment: {
+        EnvironmentRecord: {
+            // no parameters / let / const / class declarations
+        },
+
+        OuterEnvironmentReference:
+            FunctionLexicalEnvironment
+    }
+}
+
+
+- Arrow Function Execution Context is pushed onto the call stack.
+
+Call Stack:
+
+┌──────────────────────────────────┐
+│ getThisBinding()                 │
+│                                  │
+│ Arrow Function Execution Context │
+├──────────────────────────────────┤
+│ callWithThis.call(henryInfo)     │
+│                                  │
+│ Function Execution Context       │
+├──────────────────────────────────┤
+│ Global Execution Context         │
+└──────────────────────────────────┘
+
+
+Inside getThisBinding():
+
+console.log(this);
+
+
+The arrow function does not have its own "this".
+
+Therefore its "this" is lexically inherited from
+the surrounding callWithThis Function Execution Context:
+
+getThisBinding()
+    ↓
+Arrow Function Execution Context
+    ↓
+no own ThisBinding
+    ↓
+surrounding callWithThis Function Execution Context
+    ↓
+ThisBinding: henryInfo (0x2000)
+    ↓
+henryInfo
+    ↓
+{
+    name: "Henry",
+    age: 12
+}
+
+
+console.log(this);
+// { name: "Henry", age: 12 }
+
+
+- getThisBinding() finishes execution.
+- Arrow Function Execution Context is popped off the call stack (LIFO).
+
+Call Stack:
+
+┌──────────────────────────────────┐
+│ callWithThis.call(henryInfo)     │
+│                                  │
+│ Function Execution Context       │
+├──────────────────────────────────┤
+│ Global Execution Context         │
+└──────────────────────────────────┘
+
+
+- callWithThis() finishes execution.
+- Function Execution Context is popped off the call stack.
+
+Call Stack:
+
+┌──────────────────────────────┐
+│ Global Execution Context     │
+└──────────────────────────────┘
 */
-
-const personInfo = {
-	name: "Osagie",
-	age: 32,
-	greet: function () {
-		// this === personInfo (FEC - greet())
-		return `${this.name} is ${this.age} years old today!`;
-	},
-};
-
-console.log(personInfo.greet()); // Osagie is 32 years old today!
-
-const person = {
-	firstName: "Osagie",
-	age: 32,
-	greet: () => {
-		// this === globalThis
-		// (FEC - greet() lexically inherit "this" binding from the GEC)
-		return `${this.firstName} is ${this.age} years old today!`;
-	},
-};
-
-console.log(person.greet()); // undefined is undefined years old today!
-
-const animal = {
-	breed: "Akita",
-	age: 2,
-	bark() {
-		// this === animal (FEC - bark())
-		const nestedFn = () => {
-			return `${this.breed} is ${this.age} years old today!`;
-		};
-		console.log(nestedFn());
-	},
-};
-
-animal.bark(); // Akita is 2 years old today!
 
 /* 
-function User(name = "Jack", age = 30) {
-	// this = {}
-	this.name = name;
-	this.age = age;
-	// return {name, age}, this === {name: "Michael", age: 30}
-}
+After execution finishes, the call stack is empty
 
-const user = new User("Michael", undefined);
-console.log(user);
+Call Stack:
+
+┌──────────────────────────────┐
+│            empty             │
+└──────────────────────────────┘
 */
-
-class User {
-	constructor(name = "Jack", age = 30) {
-		// this = {}
-		this.name = name;
-		this.age = age;
-		// return {name, age}, this === {name: "Michael", age: 30}
-	}
-}
-
-const user = new User("Michael", undefined);
-console.log(user);
-// console.log(self); // self === globalThis
-
-const self = {};
-console.log(self);
