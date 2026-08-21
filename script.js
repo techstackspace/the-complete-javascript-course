@@ -119,11 +119,6 @@ the call stack before the global code is executed.
 
 Memory Heap ≈ {
     0x1000: <showMessage arrow function object>,
-    0x1AF11B2: <getAgeMessage function object>,
-    0x2000: <henryInfo object>,
-    0x3000: <getThisBinding arrow function object>,
-    0x4000: <callWithThis function object>
-
 }
 
 GlobalExecutionContext (creation phase) ≈ {
@@ -187,8 +182,11 @@ GlobalObject (window/global) ≈ {
 }
 
 Memory Heap: 
- 0x1AF11B2: <function object>,
- 0xA100B01: <arrow function object>
+ 	0x1000: <showMessage arrow function object>,
+    0x1AF11B2: <getAgeMessage function object>,
+    0x2000: <henryInfo object>,
+    0x3000: <getThisBinding arrow function object>,
+    0x4000: <callWithThis function object>
 
 GlobalExecutionContext (execution phase) ≈ {
 	ThisBinding: globalThis,
@@ -196,7 +194,7 @@ GlobalExecutionContext (execution phase) ≈ {
 		EnvironmentRecord: {
 		    // let / const / class declarations
 			personName: "Bob",
-			showMessage: <showMessage arrow function object> (0xA100B01),
+			showMessage: <showMessage arrow function object> (0x1000),
 			getAgeMessage: <getAgeMessage function object> (0x1AF11B2),
 			henryInfo: <henryInfo object> (0x2000),
 			getThisBinding: <getThisBinding arrow function object> (0x3000),
