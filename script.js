@@ -118,7 +118,7 @@ GlobalObject (window/global) ≈ {
 the call stack before the global code is executed.
 
 Memory Heap ≈ {
-    0x1000: <showMessage arrow function object>,
+    0x1AF11B2: <getAgeMessage function object>,
 }
 
 GlobalExecutionContext (creation phase) ≈ {
@@ -182,8 +182,8 @@ GlobalObject (window/global) ≈ {
 }
 
 Memory Heap: 
+	0x1AF11B2: <getAgeMessage function object>,
  	0x1000: <showMessage arrow function object>,
-    0x1AF11B2: <getAgeMessage function object>,
     0x2000: <henryInfo object>,
     0x3000: <getThisBinding arrow function object>,
     0x4000: <callWithThis function object>
