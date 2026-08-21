@@ -117,8 +117,14 @@ GlobalObject (window/global) ≈ {
 - After JavaScript parses the source code, the Global Execution Context is created and pushed onto 
 the call stack before the global code is executed.
 
-Memory Heap: 
- 0x1AF11B2: <function object>
+Memory Heap ≈ {
+    0x1000: <showMessage arrow function object>,
+    0x1AF11B2: <getAgeMessage function object>,
+    0x2000: <henryInfo object>,
+    0x3000: <getThisBinding arrow function object>,
+    0x4000: <callWithThis function object>
+
+}
 
 GlobalExecutionContext (creation phase) ≈ {
     ThisBinding: globalThis,
@@ -127,6 +133,10 @@ GlobalExecutionContext (creation phase) ≈ {
 		    // let / const / class declarations
 			personName: <uninitialized>, // TDZ
 			showMessage: <uninitialized>, // TDZ
+			getAgeMessage: <uninitialized>, // TDZ
+			henryInfo: <uninitialized>, // TDZ
+			getThisBinding: <uninitialized>, // TDZ
+			callWithThis: <uninitialized>, // TDZ
 		},
 		OuterEnvironmentReference: null,
 	},
@@ -186,7 +196,11 @@ GlobalExecutionContext (execution phase) ≈ {
 		EnvironmentRecord: {
 		    // let / const / class declarations
 			personName: "Bob",
-			showMessage: <arrow function object> (0xA100B01),
+			showMessage: <showMessage arrow function object> (0xA100B01),
+			getAgeMessage: <getAgeMessage function object> (0x1AF11B2),
+			henryInfo: <henryInfo object> (0x2000),
+			getThisBinding: <getThisBinding arrow function object> (0x3000),
+			callWithThis: <callWithThis function object> (0x4000),
 		},
 		OuterEnvironmentReference: null,
 	},
@@ -382,7 +396,7 @@ FunctionExecutionContext (execution phase) ≈ {
             // parameters / let / const / class declarations
 
             getThisBinding:
-                <arrow function object> (0x3000)
+                <getThisBinding arrow function object> (0x3000)
         },
 
         OuterEnvironmentReference: GlobalLexicalEnvironment
