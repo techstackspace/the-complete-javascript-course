@@ -69,7 +69,6 @@ Lexical Environment rules
 - Every function Execution Context for an ordinary function has a this binding
 - Arrow function do not have their own this binding
 */
-
 // Browser runtime
 console.log(globalThis === window); // true
 
@@ -84,7 +83,7 @@ console.dir(showMessage);
 // console.log(myName); // undefined
 var myName = "Jerry";
 console.log(myName);
-var name = "John";
+const name = "John";
 console.log(name);
 
 function getAgeMessage(day) {
@@ -466,3 +465,31 @@ const animal = {
 };
 
 animal.bark(); // Akita is 2 years old today!
+
+/* 
+function User(name = "Jack", age = 30) {
+	// this = {}
+	this.name = name;
+	this.age = age;
+	// return {name, age}, this === {name: "Michael", age: 30}
+}
+
+const user = new User("Michael", undefined);
+console.log(user);
+*/
+
+class User {
+	constructor(name = "Jack", age = 30) {
+		// this = {}
+		this.name = name;
+		this.age = age;
+		// return {name, age}, this === {name: "Michael", age: 30}
+	}
+}
+
+const user = new User("Michael", undefined);
+console.log(user);
+// console.log(self); // self === globalThis
+
+const self = {};
+console.log(self);
