@@ -284,7 +284,7 @@ During the function, getAgeMessage() call:
 Setup / creation of the FEC:
 FunctionExecutionContext (setup) ≈ {
 	ThisBinding: globalThis,
-    LexicalEnvironment: {
+    LexicalEnvironment (Function Lexical Environment): {
         EnvironmentRecord: {
             day: "Monday",
             year: <uninitialized> // TDZ
@@ -292,7 +292,7 @@ FunctionExecutionContext (setup) ≈ {
         OuterEnvironmentReference: GlobalLexicalEnvironment
     },
 
-    VariableEnvironment: {
+    VariableEnvironment (Function Variable Environment): {
         EnvironmentRecord: {
             // var / function declarations
         },
@@ -357,7 +357,7 @@ Setup / creation of the FEC:
 FunctionExecutionContext (setup) ≈ {
     ThisBinding: henryInfo (0x2000),
 
-    LexicalEnvironment: {
+    LexicalEnvironment (Function Lexical Environment): {
         EnvironmentRecord: {
             // const / let / class declarations
             getThisBinding: <uninitialized>
@@ -365,7 +365,7 @@ FunctionExecutionContext (setup) ≈ {
         OuterEnvironmentReference: GlobalLexicalEnvironment
     },
 
-    VariableEnvironment: {
+    VariableEnvironment (Function Variable Environment): {
         EnvironmentRecord: {
             // var / function declarations
         },
