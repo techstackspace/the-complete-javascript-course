@@ -361,12 +361,12 @@ const expressionFn = function () {
 
 expressionFn();
 
-const arrowFn = () => {
-	// this binding is from the GEC (arrowFn())
-	console.log(this, "arrowFn"); // this === globalThis
-};
+// const arrowFn = () => {
+// 	// this binding is from the GEC (arrowFn())
+// 	console.log(this, "arrowFn"); // this === globalThis
+// };
 
-arrowFn();
+// arrowFn();
 
 /* 
 .call(object):
@@ -391,13 +391,13 @@ expFn.call(johnInfo);
 
 // expFn();
 
-const arrFn = () => {
-	// this binding is from the GEC (arrowFn())
-	console.log(this, "arrFn"); // this === globalThis
-};
+// const arrFn = () => {
+// 	// this binding is from the GEC (arrowFn())
+// 	console.log(this, "arrFn"); // this === globalThis
+// };
 
-const michaelInfo = { name: "Michael", age: 19 };
-arrFn.call(michaelInfo);
+// const michaelInfo = { name: "Michael", age: 19 };
+// arrFn.call(michaelInfo);
 
 // arrFn();
 
@@ -430,28 +430,28 @@ FunctionExecutionContext (execution phase) ≈ {
 }
 */
 
-const personInfo = {
-	name: "Osagie",
-	age: 32,
-	greet: function () {
-		// this === personInfo (FEC - greet())
-		return `${this.name} is ${this.age} years old today!`;
-	},
-};
+// const personInfo = {
+// 	name: "Osagie",
+// 	age: 32,
+// 	greet: function () {
+// 		// this === personInfo (FEC - greet())
+// 		return `${this.name} is ${this.age} years old today!`;
+// 	},
+// };
 
-console.log(personInfo.greet()); // Osagie is 32 years old today!
+// console.log(personInfo.greet()); // Osagie is 32 years old today!
 
-const person = {
-	firstName: "Osagie",
-	age: 32,
-	greet: () => {
-		// this === globalThis
-		// (FEC - greet() lexically inherit "this" binding from the GEC)
-		return `${this.firstName} is ${this.age} years old today!`;
-	},
-};
+// const person = {
+// 	firstName: "Osagie",
+// 	age: 32,
+// 	greet: () => {
+// 		// this === globalThis
+// 		// (FEC - greet() lexically inherit "this" binding from the GEC)
+// 		return `${this.firstName} is ${this.age} years old today!`;
+// 	},
+// };
 
-console.log(person.greet()); // undefined is undefined years old today!
+// console.log(person.greet()); // undefined is undefined years old today!
 
 const animal = {
 	breed: "Akita",
@@ -466,3 +466,28 @@ const animal = {
 };
 
 animal.bark(); // Akita is 2 years old today!
+
+// console.log(this); // this === globalThis (window)
+/* 
+1. Normal function invocation:
+Do not rely on "this" inside a normal function invocation unless you deliberately know 
+how "this" is determined in that execution context.
+
+2. Arrow functions:
+Arrow functions do not have their own "this" binding. Their "this" is inherited lexically 
+from the surrounding scope, regardless of how the arrow function is invoked.
+
+3. Top-level "this":
+Avoid relying on "this" at the top level unless you deliberately know which execution 
+context and module system you are running in.
+
+4. Browser classic scripts:
+In a browser's classic script, top-level "this" refers to "window". A normal function 
+invocation can also have "window" as its "this" value when the function is non-strict.
+
+5. Bun and other runtimes:
+The value of top-level "this", and therefore the this inherited by an arrow function, 
+can depend on the runtime, module system, execution mode, and build configuration. 
+Do not assume that development and production will necessarily have the same top-level 
+"this" value.
+*/
