@@ -69,6 +69,7 @@ Lexical Environment rules
 - Every function Execution Context for an ordinary function has a this binding
 - Arrow function do not have their own this binding
 */
+
 // Browser runtime
 console.log(globalThis === window); // true
 
@@ -83,7 +84,7 @@ console.dir(showMessage);
 // console.log(myName); // undefined
 var myName = "Jerry";
 console.log(myName);
-const name = "John";
+var name = "John";
 console.log(name);
 
 function getAgeMessage(day) {
@@ -117,34 +118,52 @@ GlobalObject (window/global) ≈ {
 - After JavaScript parses the source code, the Global Execution Context is created and pushed onto 
 the call stack before the global code is executed.
 
-Memory Heap ≈ {
-    0x1AF11B2: <getAgeMessage function object>,
+Memory Heap: 
+ 0x1AF11B2: <function object>
+
+Generally,
+GlobalExecutionContext ≈ {
+	LexicalEnvironment: EnvironmentRecord,
+	VariableEnvironment: EnvironmentRecord,
+	ThisBinding: globalThis ([[GlobalThisValue]])
 }
 
+Or Simplified model
+
+Normal Script
 GlobalExecutionContext (creation phase) ≈ {
     ThisBinding: globalThis,
 	LexicalEnvironment (Global Lexical Environment): {
-		EnvironmentRecord: {
+		EnvironmentRecord (Global Environment Record): {
 		    // let / const / class declarations
-			personName: <uninitialized>, // TDZ
-			showMessage: <uninitialized>, // TDZ
-			getAgeMessage: <uninitialized>, // TDZ
-			henryInfo: <uninitialized>, // TDZ
-			getThisBinding: <uninitialized>, // TDZ
-			callWithThis: <uninitialized>, // TDZ
+			DeclarativeRecord: {
+				personName: <uninitialized>, // TDZ
+				showMessage: <uninitialized>, // TDZ
+			}
 		},
 		OuterEnvironmentReference: null,
 	},
 	VariableEnvironment (Global Variable Environment): {
-		EnvironmentRecord: {
+		EnvironmentRecord (Global Environment Record): {
 		    // var / function declarations
-			myName: undefined,
-			name: undefined,
-			getAgeMessage: <function object> (0x1AF11B2),
+			ObjectRecord: {
+				myName: undefined,
+				name: undefined,
+				getAgeMessage: <function object> (0x1AF11B2),
+				[[BindingObject]]: GlobalObject (globalThis)
+			}
 		},
 		OuterEnvironmentReference: null,
-	}
+	},
+	[[VarNames]]: [
+		"myName",
+		"name",
+		"getAgeMessage",
+	]
 }
+
+GlobalExecutionContext.ThisBinding === 
+	GlobalExecutionContext.VariableEnvironment.EnvironmentRecord.ObjectRecord.[[BindingObject]]
 
 [[Environment]] = Internal (hidden) environment reference
 showMessage ≈ {
@@ -182,35 +201,37 @@ GlobalObject (window/global) ≈ {
 }
 
 Memory Heap: 
-	0x1AF11B2: <getAgeMessage function object>,
- 	0x1000: <showMessage arrow function object>,
-    0x2000: <henryInfo object>,
-    0x3000: <getThisBinding arrow function object>,
-    0x4000: <callWithThis function object>
+ 0x1AF11B2: <function object>,
+ 0xA100B01: <arrow function object>
 
 GlobalExecutionContext (execution phase) ≈ {
 	ThisBinding: globalThis,
 	LexicalEnvironment (Global Lexical Environment): {
 		EnvironmentRecord: {
 		    // let / const / class declarations
-			personName: "Bob",
-			showMessage: <showMessage arrow function object> (0x1000),
-			getAgeMessage: <getAgeMessage function object> (0x1AF11B2),
-			henryInfo: <henryInfo object> (0x2000),
-			getThisBinding: <getThisBinding arrow function object> (0x3000),
-			callWithThis: <callWithThis function object> (0x4000),
+			DeclarativeRecord: {
+				personName: "Bob",
+				showMessage: <arrow function object> (0xA100B01),
+			}
 		},
 		OuterEnvironmentReference: null,
 	},
 	VariableEnvironment (Global Variable Environment): {
 		EnvironmentRecord: {
 		    // var / function declarations
-			myName: "Jerry",
-			name: "John",
-			getAgeMessage: <function object> (0x1AF11B2),
+			ObjectRecord: {
+				myName: "Jerry",
+				name: "John",
+				getAgeMessage: <function object> (0x1AF11B2),
+			}
 		},
 		OuterEnvironmentReference: null,
-	}
+	},
+	[[VarNames]]: [
+		"myName",
+		"name",
+		"getAgeMessage",
+	]
 }
 
 [[Environment]] = Internal (hidden) environment reference
@@ -233,6 +254,19 @@ getAgeMessage ≈ {
 */
 
 console.log(showMessage("Thursday"));
+
+/* 
+A normal Function Environment Record does NOT have the Global Environment Record's:
+
+	[[DeclarativeRecord]]
+	[[ObjectRecord]]
+	[[BindingObject]]
+	[[GlobalThisValue]]
+	[[VarNames]]
+
+Those are part of the Global Environment Record.
+*/
+
 /* 
 Execution phase (FEC)
 showMessage.[[Environment]]: -> GlobalLexicalEnvironment
@@ -284,7 +318,7 @@ During the function, getAgeMessage() call:
 Setup / creation of the FEC:
 FunctionExecutionContext (setup) ≈ {
 	ThisBinding: globalThis,
-    LexicalEnvironment (Function Lexical Environment): {
+    LexicalEnvironment: {
         EnvironmentRecord: {
             day: "Monday",
             year: <uninitialized> // TDZ
@@ -292,7 +326,7 @@ FunctionExecutionContext (setup) ≈ {
         OuterEnvironmentReference: GlobalLexicalEnvironment
     },
 
-    VariableEnvironment (Function Variable Environment): {
+    VariableEnvironment: {
         EnvironmentRecord: {
             // var / function declarations
         },
@@ -336,190 +370,10 @@ Call Stack:
 └──────────────────────────────┘
 */
 
-const callWithThis = function () {
-	const getThisBinding = () => {
-		console.log(this); // this === henryInfo
-	};
-	getThisBinding();
-};
-// callWithThis();
-const henryInfo = { name: "Henry", age: 12 };
-callWithThis.call(henryInfo);
-
-/* 
-Execution phase (FEC)
-callWithThis.[[Environment]]: -> GlobalLexicalEnvironment
-
-During the function, callWithThis.call(henryInfo):
-- A new Execution Context, Function Execution Context (FEC) is created
-
-Setup / creation of the FEC:
-FunctionExecutionContext (setup) ≈ {
-    ThisBinding: henryInfo (0x2000),
-
-    LexicalEnvironment (Function Lexical Environment): {
-        EnvironmentRecord: {
-            // const / let / class declarations
-            getThisBinding: <uninitialized>
-        },
-        OuterEnvironmentReference: GlobalLexicalEnvironment
-    },
-
-    VariableEnvironment (Function Variable Environment): {
-        EnvironmentRecord: {
-            // var / function declarations
-        },
-        OuterEnvironmentReference: GlobalLexicalEnvironment
-    }
-}
-
-- FEC is pushed onto the call stack
-
-Call Stack:
-
-┌──────────────────────────────────┐
-│ callWithThis.call(henryInfo)     │
-│                                  │
-│ Function Execution Context       │
-├──────────────────────────────────┤
-│ Global Execution Context         │
-└──────────────────────────────────┘
-
-
-FunctionExecutionContext (execution phase) ≈ {
-    ThisBinding: henryInfo (0x2000),
-
-    LexicalEnvironment (Function Lexical Environment): {
-        EnvironmentRecord: {
-            // parameters / let / const / class declarations
-
-            getThisBinding:
-                <getThisBinding arrow function object> (0x3000)
-        },
-
-        OuterEnvironmentReference: GlobalLexicalEnvironment
-    },
-
-    VariableEnvironment (Function Variable Environment): {
-        EnvironmentRecord: {
-            // var / function declarations (no binding)
-        },
-
-        OuterEnvironmentReference: GlobalLexicalEnvironment
-    }
-}
-
-
-getThisBinding ≈ {
-    [[Environment]]:
-        FunctionLexicalEnvironment,
-
-    [[ECMAScriptCode]]:
-        () => {
-            console.log(this);
-        }
-}
-
-
-- getThisBinding() is now called.
-- A new Execution Context is created for the arrow function.
-- The arrow function does NOT receive its own ThisBinding.
-- Its "this" is lexically inherited from the surrounding
-  callWithThis Function Execution Context.
-
-ArrowFunctionExecutionContext ≈ {
-    ThisBinding:
-        <no own ThisBinding>,
-
-    LexicalEnvironment: {
-        EnvironmentRecord: {
-            // no parameters / let / const / class declarations
-        },
-
-        OuterEnvironmentReference:
-            FunctionLexicalEnvironment
-    }
-}
-
-
-- Arrow Function Execution Context is pushed onto the call stack.
-
-Call Stack:
-
-┌──────────────────────────────────┐
-│ getThisBinding()                 │
-│                                  │
-│ Arrow Function Execution Context │
-├──────────────────────────────────┤
-│ callWithThis.call(henryInfo)     │
-│                                  │
-│ Function Execution Context       │
-├──────────────────────────────────┤
-│ Global Execution Context         │
-└──────────────────────────────────┘
-
-
-Inside getThisBinding():
-
-console.log(this);
-
-
-The arrow function does not have its own "this".
-
-Therefore its "this" is lexically inherited from
-the surrounding callWithThis Function Execution Context:
-
-getThisBinding()
-    ↓
-Arrow Function Execution Context
-    ↓
-no own ThisBinding
-    ↓
-surrounding callWithThis Function Execution Context
-    ↓
-ThisBinding: henryInfo (0x2000)
-    ↓
-henryInfo
-    ↓
-{
-    name: "Henry",
-    age: 12
-}
-
-
-console.log(this);
-// { name: "Henry", age: 12 }
-
-
-- getThisBinding() finishes execution.
-- Arrow Function Execution Context is popped off the call stack (LIFO).
-
-Call Stack:
-
-┌──────────────────────────────────┐
-│ callWithThis.call(henryInfo)     │
-│                                  │
-│ Function Execution Context       │
-├──────────────────────────────────┤
-│ Global Execution Context         │
-└──────────────────────────────────┘
-
-
-- callWithThis() finishes execution.
-- Function Execution Context is popped off the call stack.
-
-Call Stack:
-
-┌──────────────────────────────┐
-│ Global Execution Context     │
-└──────────────────────────────┘
-*/
-
 /* 
 After execution finishes, the call stack is empty
 
 Call Stack:
-
 ┌──────────────────────────────┐
 │            empty             │
 └──────────────────────────────┘
