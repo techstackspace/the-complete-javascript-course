@@ -125,7 +125,7 @@ Generally,
 GlobalExecutionContext ≈ {
 	LexicalEnvironment: EnvironmentRecord,
 	VariableEnvironment: EnvironmentRecord,
-	ThisBinding ([[GlobalThisValue]]): globalThis,
+	ThisBinding: globalThis ([[GlobalThisValue]]),
 }
 
 Or Simplified model
