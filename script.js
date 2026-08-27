@@ -125,7 +125,7 @@ Generally,
 GlobalExecutionContext ≈ {
 	LexicalEnvironment: EnvironmentRecord,
 	VariableEnvironment: EnvironmentRecord,
-	ThisBinding: globalThis ([[GlobalThisValue]])
+	ThisBinding ([[GlobalThisValue]]): globalThis,
 }
 
 Or Simplified model
@@ -150,7 +150,7 @@ GlobalExecutionContext (creation phase) ≈ {
 				myName: undefined,
 				name: undefined,
 				getAgeMessage: <function object> (0x1AF11B2),
-				[[BindingObject]]: GlobalObject (globalThis)
+				[[BindingObject]]: GlobalObject (globalThis),
 			}
 		},
 		OuterEnvironmentReference: null,
@@ -223,6 +223,7 @@ GlobalExecutionContext (execution phase) ≈ {
 				myName: "Jerry",
 				name: "John",
 				getAgeMessage: <function object> (0x1AF11B2),
+				[[BindingObject]]: GlobalObject (globalThis),
 			}
 		},
 		OuterEnvironmentReference: null,
