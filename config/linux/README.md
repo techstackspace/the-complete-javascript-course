@@ -521,7 +521,6 @@ code --install-extension openai.chatgpt
 # code --install-extension Sixth.sixth-ai
 # code --install-extension kilocode.Kilo-Code
 # code --install-extension sourcegraph.cody-ai
-# code --install-extension Blackboxapp.blackbox
 # code --install-extension saoudrizwan.claude-dev
 code --install-extension ms-vscode.live-server
 code --install-extension Anthropic.claude-code
