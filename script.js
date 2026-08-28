@@ -136,6 +136,5 @@ When global execution has finished:
 │            empty             │
 └──────────────────────────────┘
 
-The Global Execution Context is no longer the currently executing
-context.
+The Global Execution Context is no longer the currently executing context.
 */
