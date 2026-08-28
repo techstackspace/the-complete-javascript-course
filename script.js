@@ -65,7 +65,6 @@ Lexical Environment rules
 /* 
 Nested Function Calls
 */
-const greet = "Hello";
 
 function first() {
 	second();
@@ -76,7 +75,7 @@ function second() {
 }
 
 function third() {
-	console.log(greet);
+	console.log("Hello");
 }
 
 first();
