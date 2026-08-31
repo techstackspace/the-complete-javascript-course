@@ -119,7 +119,7 @@ GlobalObject (window/global) ≈ {
 the call stack before the global code is executed.
 
 Memory Heap: 
- 0x1AF11B2: <function object>
+ 0x1AF11B2: <getAgeMessage function object>
 
 GlobalExecutionContext (creation phase) ≈ {
     ThisBinding: globalThis,
@@ -128,6 +128,7 @@ GlobalExecutionContext (creation phase) ≈ {
 		    // let / const / class declarations
 			personName: <uninitialized>, // TDZ
 			showMessage: <uninitialized>, // TDZ
+			createCounter: <uninitialized>, // TDZ
 		},
 		OuterEnvironmentReference: null,
 	},
@@ -159,6 +160,21 @@ getAgeMessage ≈ {
 	},
 	Parameters: ["day"]
 }
+
+createCounter ≈ {
+	[[Environment]]: LexicalEnvironment (Global Lexical Environment),
+	[[ECMAScriptCode]]: () => {
+      let count = 0;
+
+      const counter = () => {
+         count++; 
+         return count;
+      };
+
+      return counter;
+   },
+	Parameters: []
+}
 */
 
 /* 
@@ -178,8 +194,11 @@ GlobalObject (window/global) ≈ {
 }
 
 Memory Heap: 
- 0x1AF11B2: <function object>,
- 0xA100B01: <arrow function object>
+ 0x1AF11B2: <getAgeMessage function object>,
+ 0xA100B01: <showMessage arrow function object>,
+ 0x1000B21: <createCounter arrow function object>,
+ 0x20AB101: <counter arrow function object>,
+ 0x210314B: <GlobalObject>,
 
 GlobalExecutionContext (execution phase) ≈ {
 	ThisBinding: globalThis,
@@ -187,7 +206,8 @@ GlobalExecutionContext (execution phase) ≈ {
 		EnvironmentRecord: {
 		    // let / const / class declarations
 			personName: "Bob",
-			showMessage: <arrow function object> (0xA100B01),
+			showMessage: <showMessage arrow function object> (0xA100B01),
+			createCounter: <createCounter arrow function object> (0x1000B21)
 		},
 		OuterEnvironmentReference: null,
 	},
@@ -196,7 +216,7 @@ GlobalExecutionContext (execution phase) ≈ {
 		    // var / function declarations
 			myName: "Jerry",
 			name: "John",
-			getAgeMessage: <function object> (0x1AF11B2),
+			getAgeMessage: <getAgeMessage function object> (0x1AF11B2),
 		},
 		OuterEnvironmentReference: null,
 	}
@@ -218,6 +238,21 @@ getAgeMessage ≈ {
 		return `Today, ${day}, ${personName} is ${year}`;
 	},
 	Parameters: ["day"]
+}
+
+createCounter ≈ {
+	[[Environment]]: LexicalEnvironment (Global Lexical Environment),
+	[[ECMAScriptCode]]: () => {
+      let count = 0;
+
+      const counter = () => {
+         count++; 
+         return count;
+      };
+
+      return counter;
+   },
+	Parameters: []
 }
 */
 
@@ -325,99 +360,70 @@ Call Stack:
 └──────────────────────────────┘
 */
 
+const createCounter = () => {
+	let count = 0;
+
+	const counter = () => {
+		count++; // count + 1
+		return count;
+	};
+
+	return counter;
+};
+
+const counter = createCounter();
+console.dir(counter);
+
 /* 
-After execution finishes, the call stack is empty
+Execution phase (FEC)
+createCounter.[[Environment]]: -> GlobalLexicalEnvironment
+During the function, createCounter() call:
+- A new Execution Context, Function Execution Context (FEC) is created
+
+Setup / creation of the FEC:
+FunctionExecutionContext (setup) ≈ {
+	ThisBinding: globalThis,
+    LexicalEnvironment: {
+        EnvironmentRecord: {
+            count: <uninitialized>, // TDZ
+            counter: <uninitialized>, // TDZ
+        },
+        OuterEnvironmentReference: GlobalLexicalEnvironment
+    },
+
+    VariableEnvironment: {
+        EnvironmentRecord: {
+            // var / function declarations
+        },
+        OuterEnvironmentReference: GlobalLexicalEnvironment
+    }
+}
+
+counter ≈ {
+   [[Environment]]: CreateCounterLexicalEnvironment,
+   [[ECMAScriptCode]]: () => {
+		count++;
+		return count;
+	},
+   Parameters: [],
+}
+
+- FEC is pushed onto the call stack
 
 Call Stack:
 ┌──────────────────────────────┐
-│            empty             │
+│ createCounter()              │
+├──────────────────────────────┤
+│ Global Execution Context     │
 └──────────────────────────────┘
-*/
 
-/* 
-Without Strict Mode
-
-Function declaration and function expression:
-Function declaration and function expression create their own "this" binding
-
-Arrow function:
-Arrow function do not have their own this binding, but uses it surrounding context "this" binding
-
-Ordinary function:
-FEC "this" binding is determined by how the function is invoked
-*/
-
-function declarationFn() {
-	// this binding is from the FEC (declarationFn())
-	console.log(this, "declarationFn"); // this === globalThis
-}
-
-declarationFn();
-
-const expressionFn = function () {
-	// this binding is from the FEC (expressionFn())
-	console.log(this, "expressionFn"); // this === globalThis
-};
-
-expressionFn();
-
-// const arrowFn = () => {
-// 	// this binding is from the GEC (arrowFn())
-// 	console.log(this, "arrowFn"); // this === globalThis
-// };
-
-// arrowFn();
-
-/* 
-.call(object):
-.call(object) explicitly supplies the "this" value for that invocation
-*/
-
-function decFn() {
-	// this binding is from the FEC (declarationFn())
-	console.log(this, "decFn"); // this === globalThis
-}
-const sarahInfo = { name: "Sarah", age: 23 };
-decFn.call(sarahInfo);
-
-// decFn();
-
-const expFn = function () {
-	// this binding is from the FEC (expressionFn())
-	console.log(this, "expFn"); // this === globalThis
-};
-const johnInfo = { name: "John", age: 33 };
-expFn.call(johnInfo);
-
-// expFn();
-
-// const arrFn = () => {
-// 	// this binding is from the GEC (arrowFn())
-// 	console.log(this, "arrFn"); // this === globalThis
-// };
-
-// const michaelInfo = { name: "Michael", age: 19 };
-// arrFn.call(michaelInfo);
-
-// arrFn();
-
-const callWithThis = function () {
-	const getThisBinding = () => {
-		console.log(this); // this === henryInfo
-	};
-	getThisBinding();
-};
-// callWithThis();
-const henryInfo = { name: "Henry", age: 12 };
-callWithThis.call(henryInfo);
-
-/* 
-expFn():
 FunctionExecutionContext (execution phase) ≈ {
-	ThisBinding: johnInfo,
+	ThisBinding: globalThis,
 	LexicalEnvironment (Function Lexical Environment): {
 		EnvironmentRecord: {
 		    // parameters / let / const / class declarations
+			count: 0,
+			counter: <counter arrow function> (0x20AB101),
 		},
 		OuterEnvironmentReference: GlobalLexicalEnvironment,
 	},
@@ -428,66 +434,27 @@ FunctionExecutionContext (execution phase) ≈ {
 		OuterEnvironmentReference: GlobalLexicalEnvironment,
 	}
 }
+
+counter.[[Environment]] -> CreateCounterLexicalEnvironment
+
+After the call to createCounter():
+- FEC is popped off from the call stack
+
+Call Stack:
+┌──────────────────────────────┐
+│ Global Execution Context     │
+└──────────────────────────────┘
 */
 
-// const personInfo = {
-// 	name: "Osagie",
-// 	age: 32,
-// 	greet: function () {
-// 		// this === personInfo (FEC - greet())
-// 		return `${this.name} is ${this.age} years old today!`;
-// 	},
-// };
+console.log(counter());
+console.log(counter());
+console.log(counter());
 
-// console.log(personInfo.greet()); // Osagie is 32 years old today!
-
-// const person = {
-// 	firstName: "Osagie",
-// 	age: 32,
-// 	greet: () => {
-// 		// this === globalThis
-// 		// (FEC - greet() lexically inherit "this" binding from the GEC)
-// 		return `${this.firstName} is ${this.age} years old today!`;
-// 	},
-// };
-
-// console.log(person.greet()); // undefined is undefined years old today!
-
-const animal = {
-	breed: "Akita",
-	age: 2,
-	bark() {
-		// this === animal (FEC - bark())
-		const nestedFn = () => {
-			return `${this.breed} is ${this.age} years old today!`;
-		};
-		console.log(nestedFn());
-	},
-};
-
-animal.bark(); // Akita is 2 years old today!
-
-// console.log(this); // this === globalThis (window)
 /* 
-1. Normal function invocation:
-Do not rely on "this" inside a normal function invocation unless you deliberately know 
-how "this" is determined in that execution context.
+After execution finishes, the call stack is empty
 
-2. Arrow functions:
-Arrow functions do not have their own "this" binding. Their "this" is inherited lexically 
-from the surrounding scope, regardless of how the arrow function is invoked.
-
-3. Top-level "this":
-Avoid relying on "this" at the top level unless you deliberately know which execution 
-context and module system you are running in.
-
-4. Browser classic scripts:
-In a browser's classic script, top-level "this" refers to "window". A normal function 
-invocation can also have "window" as its "this" value when the function is non-strict.
-
-5. Bun and other runtimes:
-The value of top-level "this", and therefore the this inherited by an arrow function, 
-can depend on the runtime, module system, execution mode, and build configuration. 
-Do not assume that development and production will necessarily have the same top-level 
-"this" value.
+Call Stack:
+┌──────────────────────────────┐
+│            empty             │
+└──────────────────────────────┘
 */
