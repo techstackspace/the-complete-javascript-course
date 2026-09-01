@@ -1,4 +1,4 @@
-// Blocks
+// Blocks (let / const)
 /*
 1. standalone block
 2. if block
@@ -11,9 +11,7 @@
 9. try block
 10. finally block
 11. catch block
-12. function body block
-13. arrow function block body
-14. static initialization block
+12. static initialization block
 */
 
 // Scopes
@@ -129,6 +127,8 @@ GlobalExecutionContext (creation phase) ≈ {
 			personName: <uninitialized>, // TDZ
 			showMessage: <uninitialized>, // TDZ
 			createCounter: <uninitialized>, // TDZ
+			username: <uninitialized>, // TDZ
+			ageMessage: <uninitialized>, // TDZ
 		},
 		OuterEnvironmentReference: null,
 	},
@@ -207,7 +207,9 @@ GlobalExecutionContext (execution phase) ≈ {
 		    // let / const / class declarations
 			personName: "Bob",
 			showMessage: <showMessage arrow function object> (0xA100B01),
-			createCounter: <createCounter arrow function object> (0x1000B21)
+			createCounter: <createCounter arrow function object>, (0x1000B21)
+			username: "Osagie",
+			ageMessage: undefined -> "He might be the eldest son of Sarah"
 		},
 		OuterEnvironmentReference: null,
 	},
@@ -457,4 +459,67 @@ Call Stack:
 ┌──────────────────────────────┐
 │            empty             │
 └──────────────────────────────┘
+*/
+
+/* 
+Function:
+  Execution Context
+  Lexical Environment
+  Variable Environment
+
+Block
+  Lexical Environment
+*/
+
+const username = "Osagie";
+
+if (username === "Osagie") {
+	console.log(`Welcome ${username}, you may have your licence`);
+}
+
+/* 
+- Variables declared with let and const are blocked-scoped (not function-scoped)
+IfBlockLexicalEnvironment ≈ {
+	EnvironmentRecord: {},
+	OuterEnvironmentReference: GlobalLexicalEnvironment
+}
+*/
+
+let ageMessage;
+const myAge = 34;
+
+if (myAge < 18) {
+	ageMessage = "I am a teenager";
+} else if (myAge > 18 && myAge <= 30) {
+	ageMessage = "He might be his elder brother";
+} else {
+	ageMessage = "He might be the eldest son of Sarah";
+}
+
+console.log(ageMessage);
+
+/* 
+- Each branch has its own block lexical environment:
+
+IfBlockLexicalEnvironment  ≈ {
+	EnvironmentRecord: {},
+	OuterEnvironmentReference: GlobalLexicalEnvironment
+}
+
+ElseIfBlockLexicalEnvironment  ≈ {
+	EnvironmentRecord: {},
+	OuterEnvironmentReference: GlobalLexicalEnvironment
+}
+
+ElseBlockLexicalEnvironment  ≈ {
+	EnvironmentRecord: {},
+	OuterEnvironmentReference: GlobalLexicalEnvironment
+}
+
+- Evaluated BlockLexicalEnvironment:
+
+ElseBlockLexicalEnvironment  ≈ {
+	EnvironmentRecord: {},
+	OuterEnvironmentReference: GlobalLexicalEnvironment
+}
 */
