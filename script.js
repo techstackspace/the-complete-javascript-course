@@ -129,6 +129,7 @@ GlobalExecutionContext (creation phase) ≈ {
 			createCounter: <uninitialized>, // TDZ
 			username: <uninitialized>, // TDZ
 			ageMessage: <uninitialized>, // TDZ
+			myAge: <uninitialized>, // TDZ
 		},
 		OuterEnvironmentReference: null,
 	},
@@ -209,7 +210,8 @@ GlobalExecutionContext (execution phase) ≈ {
 			showMessage: <showMessage arrow function object> (0xA100B01),
 			createCounter: <createCounter arrow function object>, (0x1000B21)
 			username: "Osagie",
-			ageMessage: undefined -> "He might be the eldest son of Sarah"
+			ageMessage: undefined -> "He might be the eldest son of Sarah",
+			myAge: 34,
 		},
 		OuterEnvironmentReference: null,
 	},
@@ -467,7 +469,7 @@ Function:
   Lexical Environment
   Variable Environment
 
-Block
+Block:
   Lexical Environment
 */
 
