@@ -130,6 +130,7 @@ GlobalExecutionContext (creation phase) ≈ {
 			username: <uninitialized>, // TDZ
 			ageMessage: <uninitialized>, // TDZ
 			myAge: <uninitialized>, // TDZ
+			counter: <uninitialized>,
 		},
 		OuterEnvironmentReference: null,
 	},
@@ -200,6 +201,7 @@ Memory Heap:
  0x1000B21: <createCounter arrow function object>,
  0x20AB101: <counter arrow function object>,
  0x210314B: <GlobalObject>,
+ 0x20014FA: <global counter arrow function object>,
 
 GlobalExecutionContext (execution phase) ≈ {
 	ThisBinding: globalThis,
@@ -211,7 +213,8 @@ GlobalExecutionContext (execution phase) ≈ {
 			createCounter: <createCounter arrow function object>, (0x1000B21)
 			username: "Osagie",
 			ageMessage: undefined -> "He might be the eldest son of Sarah",
-			myAge: 34,
+			myAge: 34,myAge: 34,
+			counter: <global counter arrow function object> (0x20014FA)
 		},
 		OuterEnvironmentReference: null,
 	},
