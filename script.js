@@ -495,15 +495,6 @@ createCounter FLE:
 */
 
 /* 
-After execution finishes, the call stack is empty
-
-Call Stack:
-┌──────────────────────────────┐
-│            empty             │
-└──────────────────────────────┘
-*/
-
-/* 
 Function:
   Execution Context
   Lexical Environment
@@ -659,4 +650,13 @@ getMessage function object:
 getMessage FLE:
 	message: "Hello"
 	- Eligible for GC
+*/
+
+/* 
+After execution finishes, the call stack is empty
+
+Call Stack:
+┌──────────────────────────────┐
+│            empty             │
+└──────────────────────────────┘
 */
