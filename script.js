@@ -117,7 +117,8 @@ GlobalObject (window/global) ≈ {
 the call stack before the global code is executed.
 
 Memory Heap: 
- 0x1AF11B2: <getAgeMessage function object>
+ 0x1AF11B2: <getAgeMessage function object>,
+ 0x1120FA1: <getMessage function object>,
 
 GlobalExecutionContext (creation phase) ≈ {
     ThisBinding: globalThis,
@@ -131,6 +132,7 @@ GlobalExecutionContext (creation phase) ≈ {
 			ageMessage: <uninitialized>, // TDZ
 			myAge: <uninitialized>, // TDZ
 			counter: <uninitialized>,
+			result: <uninitialized>,
 		},
 		OuterEnvironmentReference: null,
 	},
@@ -139,7 +141,8 @@ GlobalExecutionContext (creation phase) ≈ {
 		    // var / function declarations
 			myName: undefined,
 			name: undefined,
-			getAgeMessage: <function object> (0x1AF11B2),
+			getAgeMessage: <getAgeMessage function object> (0x1AF11B2),
+			getMessage: <getMessage function object>, (0x1120FA1)
 		},
 		OuterEnvironmentReference: null,
 	}
@@ -202,6 +205,7 @@ Memory Heap:
  0x20AB101: <counter arrow function object>,
  0x210314B: <GlobalObject>,
  0x20014FA: <global counter arrow function object>,
+ 0x1120FA1: <getMessage function object>
 
 GlobalExecutionContext (execution phase) ≈ {
 	ThisBinding: globalThis,
@@ -215,6 +219,7 @@ GlobalExecutionContext (execution phase) ≈ {
 			ageMessage: undefined -> "He might be the eldest son of Sarah",
 			myAge: 34,myAge: 34,
 			counter: <global counter arrow function object> (0x20014FA)
+			result: "Goodbye",
 		},
 		OuterEnvironmentReference: null,
 	},
@@ -571,9 +576,9 @@ ElseBlockLexicalEnvironment  ≈ {
 */
 
 /* 
-After if block finishes: 
+After else block finishes: 
 
-IfBlockLexicalEnvironment:
+ElseBlockLexicalEnvironment:
 	- Eligible for GC 
 */
 
@@ -587,11 +592,70 @@ result = "Goodbye";
 console.log(result); // "Goodbye"
 
 /* 
-After if block finishes:
+Execution phase (FEC)
+getMessage.[[Environment]]: -> GlobalLexicalEnvironment
+During the function, getMessage() call:
+- A new Execution Context, Function Execution Context (FEC) is created
 
+Setup / creation of the FEC:
+FunctionExecutionContext (setup) ≈ {
+	ThisBinding: globalThis,
+    LexicalEnvironment: {
+        EnvironmentRecord: {
+            message: <uninitialized>, // TDZ
+        },
+        OuterEnvironmentReference: GlobalLexicalEnvironment
+    },
+
+    VariableEnvironment: {
+        EnvironmentRecord: {
+            // var / function declarations
+        },
+        OuterEnvironmentReference: GlobalLexicalEnvironment
+    }
+}
+
+- FEC is pushed onto the call stack
+
+Call Stack:
+┌──────────────────────────────┐
+│ getMessage()                 │
+├──────────────────────────────┤
+│ Global Execution Context     │
+└──────────────────────────────┘
+
+FunctionExecutionContext (execution phase) ≈ {
+	ThisBinding: globalThis,
+	LexicalEnvironment (Function Lexical Environment): {
+		EnvironmentRecord: {
+		    // parameters / let / const / class declarations
+			message: "Hello",
+		},
+		OuterEnvironmentReference: GlobalLexicalEnvironment,
+	},
+	VariableEnvironment (Function Variable Environment): {
+		EnvironmentRecord: {
+		    // var / function declarations (no binding)
+		},
+		OuterEnvironmentReference: GlobalLexicalEnvironment,
+	}
+}
+
+After the call to getMessage():
+- FEC is popped off from the call stack
+
+Call Stack:
+┌──────────────────────────────┐
+│ Global Execution Context     │
+└──────────────────────────────┘
+*/
+
+/* 
+After the function call (getMessage()) finishes:
+
+getMessage function object:
+	- Not eligible for GC
 getMessage FLE:
-    - Eligible for GC
-
-message binding:
-    - No longer reachable
+	message: "Hello"
+	- Eligible for GC
 */
