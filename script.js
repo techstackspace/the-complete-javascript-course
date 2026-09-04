@@ -203,6 +203,9 @@ Memory Heap:
  0x210314B: <GlobalObject>,
  0x20014FA: <global counter arrow function object>,
 
+ let showMessage = <showMessage arrow function object>
+ showMessage = null;
+
 GlobalExecutionContext (execution phase) ≈ {
 	ThisBinding: globalThis,
 	LexicalEnvironment (Global Lexical Environment): {
@@ -265,6 +268,17 @@ createCounter ≈ {
 
 console.log(showMessage("Thursday"));
 /* 
+const showMessage = (day) => {
+	return `Hello ${personName}, today is ${day}`;
+};
+
+showMessage arrow function object:
+	- Not eligible for GC
+showMessage FLE:
+	day: "Thursday"
+	- ELigible for GC
+*/
+/* 
 Execution phase (FEC)
 showMessage.[[Environment]]: -> GlobalLexicalEnvironment
 During the function, showMessage() call:
@@ -306,6 +320,14 @@ Call Stack:
 */
 
 console.log(getAgeMessage("Monday"));
+/* 
+getAgeMessage function object:
+	- Not eligible for GC
+getAgeMessage FLE:
+	day: "Monday"
+	year: 10
+	- Eligible for GC
+*/
 /* 
 Execution phase (FEC)
 getAgeMessage.[[Environment]]: -> GlobalLexicalEnvironment
@@ -379,7 +401,15 @@ const createCounter = () => {
 };
 
 const counter = createCounter();
+console.log(counter); // [Function: counter2]
 console.dir(counter);
+
+/* 
+createCounter arrow function object:
+	- Not eligible for GC
+createCounter FLE:
+	- Not eligible for GC
+*/
 
 /* 
 Execution phase (FEC)
@@ -484,10 +514,16 @@ if (username === "Osagie") {
 
 /* 
 - Variables declared with let and const are blocked-scoped (not function-scoped)
+Execution phase
 IfBlockLexicalEnvironment ≈ {
 	EnvironmentRecord: {},
 	OuterEnvironmentReference: GlobalLexicalEnvironment
 }
+*/
+
+/* 
+IfBlockLexicalEnvironment:
+	- Eligible for GC 
 */
 
 let ageMessage;
@@ -504,6 +540,7 @@ if (myAge < 18) {
 console.log(ageMessage);
 
 /* 
+Execution phase
 - Each branch has its own block lexical environment:
 
 IfBlockLexicalEnvironment  ≈ {
@@ -527,4 +564,26 @@ ElseBlockLexicalEnvironment  ≈ {
 	EnvironmentRecord: {},
 	OuterEnvironmentReference: GlobalLexicalEnvironment
 }
+*/
+
+/* 
+IfBlockLexicalEnvironment:
+	- Eligible for GC 
+*/
+
+function getMessage() {
+	const message = "Hello";
+	return message;
+}
+
+let result = getMessage();
+result = "Goodbye";
+console.log(result); // "Goodbye"
+
+/* 
+getMessage FLE:
+    - Eligible for GC
+
+message binding:
+    - No longer reachable
 */
