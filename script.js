@@ -521,7 +521,8 @@ if (username === "Osagie") {
 
 /* 
 - Variables declared with let and const are blocked-scoped (not function-scoped)
-Execution phase
+
+Execution phase (GEC)
 IfBlockLexicalEnvironment ≈ {
 	EnvironmentRecord: {},
 	OuterEnvironmentReference: GlobalLexicalEnvironment
@@ -549,7 +550,7 @@ if (myAge < 18) {
 console.log(ageMessage);
 
 /* 
-Execution phase
+Execution phase (GEC)
 - Each branch has its own block lexical environment:
 
 IfBlockLexicalEnvironment  ≈ {
