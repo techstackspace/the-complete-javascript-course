@@ -217,7 +217,7 @@ GlobalExecutionContext (execution phase) ≈ {
 			createCounter: <createCounter arrow function object>, (0x1000B21)
 			username: "Osagie",
 			ageMessage: undefined -> "He might be the eldest son of Sarah",
-			myAge: 34,myAge: 34,
+			myAge: 34,
 			counter: <global counter arrow function object> (0x20014FA)
 			result: "Goodbye",
 		},
