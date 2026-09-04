@@ -203,9 +203,6 @@ Memory Heap:
  0x210314B: <GlobalObject>,
  0x20014FA: <global counter arrow function object>,
 
- let showMessage = <showMessage arrow function object>
- showMessage = null;
-
 GlobalExecutionContext (execution phase) ≈ {
 	ThisBinding: globalThis,
 	LexicalEnvironment (Global Lexical Environment): {
@@ -268,17 +265,6 @@ createCounter ≈ {
 
 console.log(showMessage("Thursday"));
 /* 
-const showMessage = (day) => {
-	return `Hello ${personName}, today is ${day}`;
-};
-
-showMessage arrow function object:
-	- Not eligible for GC
-showMessage FLE:
-	day: "Thursday"
-	- ELigible for GC
-*/
-/* 
 Execution phase (FEC)
 showMessage.[[Environment]]: -> GlobalLexicalEnvironment
 During the function, showMessage() call:
@@ -319,15 +305,19 @@ Call Stack:
 
 */
 
-console.log(getAgeMessage("Monday"));
 /* 
-getAgeMessage function object:
+After the function call finishes (showMessage):
+
+GC = Garbage Collection
+showMessage arrow function object:
 	- Not eligible for GC
-getAgeMessage FLE:
-	day: "Monday"
-	year: 10
+showMessage FLE:
+	day: "Thursday"
 	- Eligible for GC
 */
+
+console.log(getAgeMessage("Monday"));
+
 /* 
 Execution phase (FEC)
 getAgeMessage.[[Environment]]: -> GlobalLexicalEnvironment
@@ -389,6 +379,17 @@ Call Stack:
 └──────────────────────────────┘
 */
 
+/* 
+After the function call (getAgeMessage()) finishes:
+
+getAgeMessage function object:
+	- Not eligible for GC
+getAgeMessage FLE:
+	day: "Monday"
+	year: 10
+	- Eligible for GC
+*/
+
 const createCounter = () => {
 	let count = 0;
 
@@ -403,13 +404,6 @@ const createCounter = () => {
 const counter = createCounter();
 console.log(counter); // [Function: counter2]
 console.dir(counter);
-
-/* 
-createCounter arrow function object:
-	- Not eligible for GC
-createCounter FLE:
-	- Not eligible for GC
-*/
 
 /* 
 Execution phase (FEC)
@@ -488,6 +482,14 @@ console.log(counter());
 console.log(counter());
 
 /* 
+After the function call (createCount()) finishes:
+createCounter arrow function object:
+	- Not eligible for GC
+createCounter FLE:
+	- Not eligible for GC
+*/
+
+/* 
 After execution finishes, the call stack is empty
 
 Call Stack:
@@ -522,6 +524,8 @@ IfBlockLexicalEnvironment ≈ {
 */
 
 /* 
+After if block finishes: 
+
 IfBlockLexicalEnvironment:
 	- Eligible for GC 
 */
@@ -567,6 +571,8 @@ ElseBlockLexicalEnvironment  ≈ {
 */
 
 /* 
+After if block finishes: 
+
 IfBlockLexicalEnvironment:
 	- Eligible for GC 
 */
@@ -581,6 +587,8 @@ result = "Goodbye";
 console.log(result); // "Goodbye"
 
 /* 
+After if block finishes:
+
 getMessage FLE:
     - Eligible for GC
 
