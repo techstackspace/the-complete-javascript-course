@@ -544,24 +544,24 @@ console.log(ageMessage);
 Execution phase (GEC)
 - Each branch has its own block lexical environment:
 
-IfBlockLexicalEnvironment  ≈ {
+IfBlockLexicalEnvironment ≈ {
 	EnvironmentRecord: {},
 	OuterEnvironmentReference: GlobalLexicalEnvironment
 }
 
-ElseIfBlockLexicalEnvironment  ≈ {
+ElseIfBlockLexicalEnvironment ≈ {
 	EnvironmentRecord: {},
 	OuterEnvironmentReference: GlobalLexicalEnvironment
 }
 
-ElseBlockLexicalEnvironment  ≈ {
+ElseBlockLexicalEnvironment ≈ {
 	EnvironmentRecord: {},
 	OuterEnvironmentReference: GlobalLexicalEnvironment
 }
 
 - Evaluated BlockLexicalEnvironment:
 
-ElseBlockLexicalEnvironment  ≈ {
+ElseBlockLexicalEnvironment ≈ {
 	EnvironmentRecord: {},
 	OuterEnvironmentReference: GlobalLexicalEnvironment
 }
