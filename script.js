@@ -24,12 +24,12 @@
 */
 
 var globalVar = "I am global";
-let globalLet = "I am also global";
-const globalConst = "Ne too";
+// let globalLet = "I am also global";
+const globalConst = "Me too";
 
 function showGlobal() {
 	console.log(globalVar);
-	console.log(globalLet);
+	// console.log(globalLet);
 	console.log(globalConst);
 }
 
@@ -43,11 +43,11 @@ showGlobal();
 // myFunction();
 // console.log(functionVar);
 
-{
-	let blockLet = "I am block-scoped";
-	const blockConst = "Me too";
-	var blockVar = "I am function-scoped (var ignores blocks)";
-}
+// {
+// 	let blockLet = "I am block-scoped";
+// 	const blockConst = "Me too";
+// 	var blockVar = "I am function-scoped (var ignores blocks)";
+// }
 
 // console.log(blockLet);
 // console.log(blockConst);
@@ -64,3 +64,13 @@ function outer() {
 }
 var innerFunc = outer();
 innerFunc();
+
+// console.log(self);
+
+const self = {};
+console.log(self);
+
+const name = "Jack";
+console.log(name);
+
+console.log(globalThis);
