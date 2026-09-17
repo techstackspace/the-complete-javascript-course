@@ -31,6 +31,11 @@ function fn(para1, para2, ..., paraN) {
 obj = {...}
 fn.call(obj, arg1, arg2, ..., argN)
 fn.apply(obj, [arg1, arg2, ..., argN])
+boundFn = fn.bind(obj, arg1, arg2, ..., argN)
+boundFn()
+or 
+boundFn = fn.bind(obj)
+boundFn(arg1, arg2, ..., argN)
 */
 
 function greet(firstName, lastName) {
@@ -59,5 +64,38 @@ Function.prototype ≈ {
     apply: function,
     bind: function,
     ...
+}
+*/
+
+function introduce(role, company) {
+	return `${this.name} is a ${role} at ${company}.`;
+}
+
+const worker = { name: "Michael" };
+const boundIntroduce = introduce.bind(worker);
+console.dir(boundIntroduce);
+console.log(boundIntroduce("Engineer", "Facebook"));
+
+/* 
+boundIntroduce ≈ {
+    [[BoundTargetFunction]]: introduce,
+    [[BoundThis]]: worker,
+    [[BoundArguments]]: [],
+    [[Prototype]]: Function.prototype
+}
+*/
+
+const boundIntroduce1 = introduce.bind(worker, "Data Analyst", "SpaceX");
+console.dir(boundIntroduce1);
+console.log(boundIntroduce1());
+
+console.log(introduce === boundIntroduce); // false
+
+/* 
+boundIntroduce1 ≈ {
+    [[BoundTargetFunction]]: introduce1,
+    [[BoundThis]]: worker,
+    [[BoundArguments]]: ["Data Analyst", "SpaceX"],
+    [[Prototype]]: Function.prototype
 }
 */
