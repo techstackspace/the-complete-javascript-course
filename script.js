@@ -45,7 +45,7 @@ function greet1(firstName, lastName) {
 }
 
 const person1 = { age: 23, day: "monday" };
-console.log(greet1.call(person1, "Osagie", "Bello"));
+console.log(greet1.apply(person1, ["Osagie", "Bello"]));
 
 /* 
 greet ≈ {
