@@ -23,54 +23,47 @@
 5. Class Scope
 */
 
-var globalVar = "I am global";
-// let globalLet = "I am also global";
-const globalConst = "Me too";
-
-function showGlobal() {
-	console.log(globalVar);
-	// console.log(globalLet);
-	console.log(globalConst);
+/* 
+function fn(para1, para2, ..., paraN) {
+    console.log(this)
 }
 
-showGlobal();
+obj = {...}
+fn.call(obj, arg1, arg2, ..., argN)
 
-// function myFunction() {
-// 	var functionVar = "I am function-scoped";
-// 	console.log(functionVar);
-// }
-
-// myFunction();
-// console.log(functionVar);
-
-// {
-// 	let blockLet = "I am block-scoped";
-// 	const blockConst = "Me too";
-// 	var blockVar = "I am function-scoped (var ignores blocks)";
-// }
-
-// console.log(blockLet);
-// console.log(blockConst);
-console.log(blockVar);
-
-function outer() {
-	var outerVar = "Hello";
-
-	function inner() {
-		console.log(outerVar);
-	}
-
-	return inner;
+function fn(para1, para2, ..., paraN) {
+    console.log(this)
 }
-var innerFunc = outer();
-innerFunc();
 
-// console.log(self);
+obj = {...}
+fn.apply(obj, [arg1, arg2, ..., argN])
+*/
 
-const self = {};
-console.log(self);
+function greet(firstName, lastName) {
+	return `My name is ${firstName} ${lastName}. I am ${this.age} years old on ${this.day}.`;
+}
 
-const name = "Jack";
-console.log(name);
+const person = { age: 34, day: "thursday" };
+console.log(greet.call(person, "John", "Doe"));
 
-console.log(globalThis);
+function greet1(firstName, lastName) {
+	return `My name is ${firstName} ${lastName}. I am ${this.age} years old on ${this.day}.`;
+}
+
+const person1 = { age: 23, day: "monday" };
+console.log(greet1.call(person1, "Osagie", "Bello"));
+
+/* 
+greet ≈ {
+    [[Environment]]: LexicalEnvironment (Global Lexical Environment),
+    [[Prototype]]: Function.prototype,
+    ...
+}
+
+Function.prototype ≈ {
+    call: function,
+    apply: function,
+    bind: function,
+    ...
+}
+*/
