@@ -30,12 +30,6 @@ function fn(para1, para2, ..., paraN) {
 
 obj = {...}
 fn.call(obj, arg1, arg2, ..., argN)
-
-function fn(para1, para2, ..., paraN) {
-    console.log(this)
-}
-
-obj = {...}
 fn.apply(obj, [arg1, arg2, ..., argN])
 */
 
